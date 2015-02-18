@@ -19,7 +19,7 @@ debug = false
 [server:main]
 use = egg:Paste#http
 host = 0.0.0.0
-port = 5000
+port = 80
 
 [app:main]
 use = egg:ckan
@@ -71,7 +71,7 @@ ckan.auth.roles_that_cascade_to_sub_groups = admin
 ## Search Settings
 
 ckan.site_id = default
-#solr_url = http://127.0.0.1:8983/solr
+solr_url = http://127.0.0.1:8983/solr
 
 #ckan.simple_search = 1
 
@@ -105,7 +105,7 @@ ckan.preview.loadable = html htm rdf+xml owl+xml xml n3 n-triples turtle plain a
 
 
 ## Internationalisation Settings
-ckan.locale_default = en
+ckan.locale_default = sk
 ckan.locale_order = en pt_BR ja it cs_CZ ca es fr el sv sr sr@latin no sk fi ru de pl nl bg ko_KR hu sa sl lv
 ckan.locales_offered =
 ckan.locales_filtered_out = en_GB
@@ -120,9 +120,9 @@ ckan.feeds.author_link =
 
 ## Storage Settings
 
-#ckan.storage_path = /var/lib/ckan
-#ckan.max_resource_size = 10
-#ckan.max_image_size = 2
+ckan.storage_path = /var/lib/ckan
+ckan.max_resource_size = 10
+ckan.max_image_size = 2
 
 ## Datapusher settings
 
