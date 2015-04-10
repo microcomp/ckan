@@ -202,7 +202,7 @@ def resource_update(context, data_dict):
 
     resource = model.Resource.get(id)
     context["resource"] = resource
-
+    log.info('resource update: %s', data_dict)
     if not resource:
         logging.error('Could not find resource ' + id)
         raise NotFound(_('Resource was not found.'))
@@ -219,9 +219,10 @@ def resource_update(context, data_dict):
     else:
         logging.error('Could not find resource ' + id)
         raise NotFound(_('Resource was not found.'))
-
+    if not data_dict.get('last_modified', ''):
+        data_dict['last_modified'] = datetime.datetime.now()
     upload = uploader.ResourceUpload(data_dict)
-
+    
     pkg_dict['resources'][n] = data_dict
 
     try:
