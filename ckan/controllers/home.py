@@ -88,7 +88,9 @@ class HomeController(base.BaseController):
 
         if c.userobj is not None:
             msg = None
-            url = h.url_for(controller='user', action='edit')
+            url = config.get('ckan.profile_update_url', '')
+            if not url:
+                url = h.url_for(controller='user', action='edit')
             is_google_id = \
                 c.userobj.name.startswith(
                     'https://www.google.com/accounts/o8/id')
@@ -103,7 +105,7 @@ class HomeController(base.BaseController):
                 msg = _('Please <a href="%s">update your profile</a>'
                         ' and add your email address. ') % url + \
                     _('%s uses your email address'
-                        ' if you need to reset your password.') \
+                        ' to send you notifications.') \
                     % g.site_title
             elif is_google_id and not c.userobj.fullname:
                 msg = _('Please <a href="%s">update your profile</a>'
