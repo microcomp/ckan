@@ -94,26 +94,28 @@ class DatastorePlugin(p.SingletonPlugin):
             self._create_alias_table()
 
 
-    def notify(self, entity, operation=None):
+   def notify(self, entity, operation=None):
         if not isinstance(entity, model.Package) or self.legacy_mode:
             return
         # if a resource is new, it cannot have a datastore resource, yet
         if operation == model.domain_object.DomainObjectOperation.changed:
             context = {'model': model, 'ignore_auth': True}
-            if entity.private:
-                func = p.toolkit.get_action('datastore_make_private')
-            else:
-                func = p.toolkit.get_action('datastore_make_public')
+            make_private = p.toolkit.get_action('datastore_make_private')
+            make_public = p.toolkit.get_action('datastore_make_public')
             for resource in entity.resources:
                 try:
-                    status = resource.extras('status', '')
-                    log.info('resource status: %s', status)
+                    status = resource.extras.get('status', '')
                     if status != 'public':
-                        func = p.toolkit.get_action('datastore_make_private')
+                        func = make_private
+                    if status == 'public' and entity.private:
+                        func = make_private
+                    if status == 'public' and not entity.private:
+                        func = make_public
                     func(context, {
                         'connection_url': self.write_url,
                         'resource_id': resource.id})
                 except p.toolkit.ObjectNotFound:
+                    log.info('something went wrong in datastore')
                     pass
 
     def _log_or_raise(self, message):
