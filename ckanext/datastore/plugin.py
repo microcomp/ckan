@@ -106,6 +106,10 @@ class DatastorePlugin(p.SingletonPlugin):
                 func = p.toolkit.get_action('datastore_make_public')
             for resource in entity.resources:
                 try:
+                    status = resource.extras('status', '')
+                    log.info('resource status: %s', status)
+                    if status != 'public':
+                        func = p.toolkit.get_action('datastore_make_private')
                     func(context, {
                         'connection_url': self.write_url,
                         'resource_id': resource.id})
