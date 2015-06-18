@@ -94,7 +94,7 @@ class DatastorePlugin(p.SingletonPlugin):
             self._create_alias_table()
 
 
-   def notify(self, entity, operation=None):
+    def notify(self, entity, operation=None):
         if not isinstance(entity, model.Package) or self.legacy_mode:
             return
         # if a resource is new, it cannot have a datastore resource, yet

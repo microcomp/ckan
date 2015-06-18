@@ -27,7 +27,7 @@ class ResourceDataController(base.BaseController):
         if toolkit.request.method == 'POST':
             try:
                 toolkit.c.pkg_dict = p.toolkit.get_action('datapusher_submit')(
-                    None, {'resource_id': resource_id}
+                    None, {'resource_id': resource_id, 'package_id' : id}
                 )
             except logic.ValidationError:
                 pass
@@ -47,9 +47,9 @@ class ResourceDataController(base.BaseController):
                 None, {'id': resource_id}
             )
         except logic.NotFound:
-            base.abort(404, _('Resource not found'))
+            base.abort(404, p.toolkit._('Resource not found'))
         except logic.NotAuthorized:
-            base.abort(401, _('Unauthorized to edit this resource'))
+            base.abort(401, p.toolkit._('Unauthorized to edit this resource'))
 
         try:
             datapusher_status = p.toolkit.get_action('datapusher_status')(
@@ -100,7 +100,8 @@ class DatapusherPlugin(p.SingletonPlugin):
                         entity.url_type != 'datapusher'):
                     try:
                         p.toolkit.get_action('datapusher_submit')(context, {
-                            'resource_id': entity.id
+                            'resource_id': entity.id,
+                            'package_id': entity.resource_group.package.id
                         })
                     except p.toolkit.ValidationError, e:
                         # If datapusher is offline want to catch error instead

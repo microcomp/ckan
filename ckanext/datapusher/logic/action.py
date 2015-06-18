@@ -35,6 +35,7 @@ def datapusher_submit(context, data_dict):
     '''
 
     schema = context.get('schema', dpschema.datapusher_submit_schema())
+    package_id = data_dict.pop('package_id', '')
     data_dict, errors = _validate(data_dict, schema, context)
     if errors:
         raise p.toolkit.ValidationError(errors)
@@ -73,6 +74,20 @@ def datapusher_submit(context, data_dict):
     context['ignore_auth'] = True
     result = p.toolkit.get_action('task_status_update')(context, task)
     task_id = result['id']
+    user_apikey = user['apikey']
+    try:
+        p.toolkit.check_access('is_data_curator', context, data_dict)
+        package = p.toolkit.get_action('package_show')(context, {'id' : package_id})
+        owner_org = package['owner_org']
+        context['keep_apikey'] = True
+        context['return_minimal'] = True
+        po_user = p.toolkit.get_action('user_show')(context, {'id': owner_org})
+        log.info('po user: %s', po_user)
+        user_apikey = po_user.get('apikey', user_apikey)
+    except p.toolkit.NotAuthorized:
+        pass
+    except logic.NotFound:
+        pass
 
     try:
         r = requests.post(
@@ -81,7 +96,7 @@ def datapusher_submit(context, data_dict):
                 'Content-Type': 'application/json'
             },
             data=json.dumps({
-                'api_key': user['apikey'],
+                'api_key': user_apikey,
                 'job_type': 'push_to_datastore',
                 'result_url': callback_url,
                 'metadata': {
