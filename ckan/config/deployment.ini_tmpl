@@ -57,21 +57,21 @@ ckan.site_url =
 ## Authorization Settings
 
 ckan.auth.anon_create_dataset = false
-ckan.auth.create_unowned_dataset = true
-ckan.auth.create_dataset_if_not_in_organization = true
-ckan.auth.user_create_groups = true
-ckan.auth.user_create_organizations = true
-ckan.auth.user_delete_groups = true
-ckan.auth.user_delete_organizations = true
-ckan.auth.create_user_via_api = false
-ckan.auth.create_user_via_web = true
+ckan.auth.create_unowned_dataset = false
+ckan.auth.create_dataset_if_not_in_organization = false
+ckan.auth.user_create_groups = false
+ckan.auth.user_create_organizations = false
+ckan.auth.user_delete_groups = false
+ckan.auth.user_delete_organizations = false
+ckan.auth.create_user_via_api = true
+ckan.auth.create_user_via_web = false
 ckan.auth.roles_that_cascade_to_sub_groups = admin
 
 
 ## Search Settings
 
 ckan.site_id = default
-solr_url = http://127.0.0.1:8983/solr
+solr_url = http://127.0.0.1:8080/solr
 
 #ckan.simple_search = 1
 
@@ -83,8 +83,7 @@ solr_url = http://127.0.0.1:8983/solr
 #       Add ``pdf_preview`` to enable the resource preview for PDFs
 #		Add ``resource_proxy`` to enable resorce proxying and get around the
 #		same origin policy
-ckan.plugins = stats text_preview recline_preview
-
+ckan.plugins = stats text_preview recline_preview datastore datapusher
 
 ## Front-End Settings
 ckan.site_title = CKAN
@@ -107,7 +106,7 @@ ckan.preview.loadable = html htm rdf+xml owl+xml xml n3 n-triples turtle plain a
 ## Internationalisation Settings
 ckan.locale_default = sk
 ckan.locale_order = en pt_BR ja it cs_CZ ca es fr el sv sr sr@latin no sk fi ru de pl nl bg ko_KR hu sa sl lv
-ckan.locales_offered =
+ckan.locales_offered = sk en
 ckan.locales_filtered_out = en_GB
 
 
@@ -128,15 +127,15 @@ ckan.max_image_size = 2
 
 # Make sure you have set up the DataStore
 
-#ckan.datapusher.formats =
-#ckan.datapusher.url = http://127.0.0.1:8800/
+ckan.datapusher.formats = csv
+ckan.datapusher.url = http://127.0.0.1:8800/
 
 ## Activity Streams Settings
 
-#ckan.activity_streams_enabled = true
-#ckan.activity_list_limit = 31
-#ckan.activity_streams_email_notifications = true
-# ckan.email_notifications_since = 2 days
+ckan.activity_streams_enabled = true
+ckan.activity_list_limit = 31
+ckan.activity_streams_email_notifications = true
+ckan.email_notifications_since = 2 days
 
 
 ## Email settings
@@ -147,7 +146,8 @@ smtp.server = localhost
 smtp.starttls = False
 #smtp.user = your_username@gmail.com
 #smtp.password = your_password
-#smtp.mail_from =
+smtp.mail_from = spravca@data.gov.sk
+smtp.mail_from_name = Spravca MOD
 
 
 ## Logging configuration
@@ -155,24 +155,24 @@ smtp.starttls = False
 keys = root, ckan, ckanext
 
 [handlers]
-keys = console
+keys = console,filelog
 
 [formatters]
 keys = generic
 
 [logger_root]
 level = WARNING
-handlers = console
+handlers = console,filelog
 
 [logger_ckan]
 level = INFO
-handlers = console
+handlers = console,filelog
 qualname = ckan
 propagate = 0
 
 [logger_ckanext]
 level = DEBUG
-handlers = console
+handlers = console,filelog
 qualname = ckanext
 propagate = 0
 
@@ -180,6 +180,12 @@ propagate = 0
 class = StreamHandler
 args = (sys.stderr,)
 level = NOTSET
+formatter = generic
+
+[handler_filelog]
+class = logging.handlers.TimedRotatingFileHandler
+args = ('/var/log/ckan/ckan.log', 'midnight', 1, 31)
+level = DEBUG
 formatter = generic
 
 [formatter_generic]
