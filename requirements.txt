@@ -61,7 +61,7 @@ pyparsing==1.5.6
 -e git+https://github.com/microcomp/ckanext-archiver.git@master#egg=ckanext-archiver
 -e git+https://github.com/microcomp/ckanext-audit.git@master#egg=ckanext-audit
 git+https://github.com/OpenDataNode/ckanext-audited-datastore-api.git@master#egg=ckanext-audited-datastore-api
--e git+https://github.com/microcomp/ckanext-cas.git@feature/user_per_org#egg=ckanext-cas
+-e git+https://github.com/microcomp/ckanext-cas.git@master#egg=ckanext-cas
 -e git+https://github.com/microcomp/ckanext-dataset.git@master#egg=ckanext-dataset
 -e git+https://github.com/microcomp/ckanext-dataset_comments.git@master#egg=ckanext-dataset_comments
 -e git+https://github.com/microcomp/ckanext-dataset_likes.git@master#egg=ckanext-dataset_likes
