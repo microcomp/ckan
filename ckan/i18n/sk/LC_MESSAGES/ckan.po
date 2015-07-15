@@ -4266,7 +4266,7 @@ msgstr "Hľadať tagy"
 #: ckan/templates/user/dashboard.html:6
 #: ckan/templates_legacy/user/layout.html:11
 msgid "Dashboard"
-msgstr "Panel"
+msgstr "Dashboard"
 
 #: ckan/templates/user/dashboard.html:19 ckan/templates/user/dashboard.html:37
 msgid "News feed"
