@@ -5,6 +5,7 @@ import requests
 
 import ckan.logic as logic
 import ckan.lib.base as base
+import ckan.plugins.toolkit as tk
 
 log = getLogger(__name__)
 
@@ -38,8 +39,8 @@ def proxy_resource(context, data_dict):
 
         cl = r.headers['content-length']
         if cl and int(cl) > MAX_FILE_SIZE:
-            base.abort(409, '''Content is too large to be proxied. Allowed
-                file size: {allowed}, Content-Length: {actual}.'''.format(
+            base.abort(409, tk._('''Content is too large to be proxied. Allowed
+                file size: {allowed}, Content-Length: {actual}.''').format(
                 allowed=MAX_FILE_SIZE, actual=cl))
 
         if not did_get:
@@ -55,18 +56,18 @@ def proxy_resource(context, data_dict):
 
             if length >= MAX_FILE_SIZE:
                 base.abort(409, headers={'content-encoding': ''},
-                           detail='Content is too large to be proxied.')
+                           detail= tk._('Content is too large to be proxied.'))
 
     except requests.exceptions.HTTPError, error:
-        details = 'Could not proxy resource. Server responded with %s %s' % (
+        details = tk._('Could not proxy resource. Server responded with %s %s') % (
             error.response.status_code, error.response.reason)
         base.abort(409, detail=details)
     except requests.exceptions.ConnectionError, error:
-        details = '''Could not proxy resource because a
-                            connection error occurred. %s''' % error
+        details = tk._('''Could not proxy resource because a
+                            connection error occurred. %s''') % error
         base.abort(502, detail=details)
     except requests.exceptions.Timeout, error:
-        details = 'Could not proxy resource because the connection timed out.'
+        details = tk._('Could not proxy resource because the connection timed out.')
         base.abort(504, detail=details)
 
 
