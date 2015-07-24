@@ -250,7 +250,6 @@ def resource_create(context, data_dict):
     user = context['user']
 
     package_id = _get_or_bust(data_dict, 'package_id')
-    data_dict.pop('package_id')
 
     pkg_dict = _get_action('package_show')(context, {'id': package_id})
 
@@ -898,7 +897,7 @@ def user_invite(context, data_dict):
 
 def _get_random_username_from_email(email):
     localpart = email.split('@')[0]
-    cleaned_localpart = re.sub(r'[^\w]', '-', localpart)
+    cleaned_localpart = re.sub(r'[^\w]', '-', localpart).lower()
 
     # if we can't create a unique user name within this many attempts
     # then something else is probably wrong and we should give up

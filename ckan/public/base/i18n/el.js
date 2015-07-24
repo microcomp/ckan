@@ -6,7 +6,7 @@
   },
   "An Error Occurred": [
     null,
-    "Παρουσιάστε ένα λάθος"
+    "Παρουσιάστηκε σφάλμα"
   ],
   "Are you sure you want to perform this action?": [
     null,
@@ -44,25 +44,49 @@
     null,
     "Δεδομένα εισόδου πολύ μικρά, πρέπει να είναι τουλάχιστον ένας χαρακτήρας"
   ],
+  "Link": [
+    null,
+    "Σύνδεσμος"
+  ],
+  "Link to a URL on the internet (you can also link to an API)": [
+    null,
+    "Δώστε σύνδεσμο σε ένα URL στο διαδίκτυο (μπορείτε επίσης να δώσετε έναν σύνδεσμο σε ένα API)"
+  ],
   "Loading...": [
     null,
-    "Φορτώνει...."
+    "Φόρτωση..."
   ],
   "No matches found": [
     null,
-    "Δεν βρέθηκε"
+    "Δεν βρέθηκαν αποτελέσματα"
   ],
   "Please Confirm Action": [
     null,
-    "Παρακαλώ Επιβεβαιώστε "
+    "Παρακαλώ Επιβεβαιώστε"
   ],
   "Remove": [
     null,
     "Αφαίρεση"
   ],
+  "Reorder resources": [
+    null,
+    "Επαναταξινόμηση πόρων"
+  ],
+  "Reset this": [
+    null,
+    "Επαναφορά"
+  ],
   "Resource uploaded": [
     null,
     "O πόρος μεταφορτώθηκε επιτυχώς"
+  ],
+  "Save order": [
+    null,
+    "Αποθήκευση ταξινόμησης"
+  ],
+  "Saving...": [
+    null,
+    "Αποθήκευση..."
   ],
   "Show more": [
     null,
@@ -102,18 +126,26 @@
   ],
   "Upload": [
     null,
-    "Ανεβάστε"
+    "Ανέβασμα Αρχείου"
   ],
   "Upload a file": [
     null,
-    "Φορτώστε ένα αρχείο"
+    "Ανεβάστε ένα αρχείο"
+  ],
+  "Upload a file on your computer": [
+    null,
+    "Μεταφόρτωση αρχείου στον υπολογιστή σας"
+  ],
+  "You are uploading a file. Are you sure you want to navigate away and stop this upload?": [
+    null,
+    "Πραγματοποιείτε μεταφόρτωση αρχείου. Είστε σίγουροι ότι θέλετε να πλοηγηθείτε σε κάτι άλλο και να σταματήσετε αυτή τη μεταφόρτωση;"
   ],
   "show less": [
     null,
-    "λιγότερα"
+    "εμφάνιση λιγότερων"
   ],
   "show more": [
     null,
-    "περισσότερα"
+    "εμφάνιση περισσοτέρων"
   ]
 }
