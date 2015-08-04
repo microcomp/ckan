@@ -129,7 +129,8 @@ def datastore_create(context, data_dict):
     model = _get_or_bust(context, 'model')
     resource = model.Resource.get(data_dict['resource_id'])
     legacy_mode = 'ckan.datastore.read_url' not in pylons.config
-    if not legacy_mode and resource.resource_group.package.private:
+    status = resource.extras.get('status', '')
+    if not legacy_mode and (resource.resource_group.package.private or status=='private'):
         data_dict['private'] = True
 
     result = db.create(context, data_dict)
