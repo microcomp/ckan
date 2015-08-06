@@ -69,7 +69,7 @@ git+https://github.com/OpenDataNode/ckanext-audited-datastore-api.git@master#egg
 -e git+https://github.com/microcomp/ckanext-edem.git@feature/session_role_access#egg=ckanext-edem
 -e git+https://github.com/microcomp/ckanext-notifications.git@master#egg=ckanext-notifications
 -e git+https://github.com/microcomp/ckanext-notification_api.git@master#egg=ckanext-notification_api
--e git+https://github.com/OpenDataNode/ckanext-odn-pipeline.git@f718f4364349e5df6e865bd532bcb2264dd4890c#egg=ckanext-odn-pipeline
+-e git+https://github.com/OpenDataNode/ckanext-odn-pipeline.git@EDEM#egg=ckanext-odn-pipeline
 -e git+https://github.com/microcomp/ckanext-responsive_design.git@master#egg=ckanext-responsive_design
 -e git+https://github.com/microcomp/ckanext-sla.git@master#egg=ckanext-sla
 -e git+https://github.com/microcomp/ckanext-sparql.git@master#egg=ckanext-sparql
