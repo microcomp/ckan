@@ -39,5 +39,21 @@
   "Upload a file": [
     null,
     "Nahrať súbor"
+  ],
+  "Hide": [
+    null,
+   "Skryť"
+  ],
+  "Show more": [
+    null,
+    "Ukázať viac"
+  ],
+  "show less": [
+    null,
+    "ukázať menej"
+  ],
+  "show more": [
+    null,
+    "ukázať viac"
   ]
 }
