@@ -55,5 +55,13 @@
   "show more": [
     null,
     "ukázať viac"
+  ],
+  "Remove": [
+    null,
+    "Odstrániť"
+  ],
+  "Reorder resources": [
+    null,
+    "Preusporiadať dátové zdroje"
   ]
 }
