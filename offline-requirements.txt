@@ -59,7 +59,7 @@ pyparsing==1.5.6
 -e /usr/lib/ckan/default/src/ckanext-api_management
 -e /usr/lib/ckan/default/src/ckanext-apps_and_ideas
 -e /usr/lib/ckan/default/src/ckanext-archiver
--e /usr/lib/ckan/default/src/ckanext-audit.git
+-e /usr/lib/ckan/default/src/ckanext-audit
 /usr/lib/ckan/default/src/ckanext-audited-datastore-api
 -e /usr/lib/ckan/default/src/ckanext-cas
 -e /usr/lib/ckan/default/src/ckanext-dataset
