@@ -26,6 +26,7 @@ import ckan.lib.app_globals as app_globals
 import ckan.plugins as p
 import ckan.model as model
 import ckan.lib.maintain as maintain
+import ckan.logic as logic
 
 # These imports are for legacy usages and will be removed soon these should
 # be imported directly from ckan.common for internal ckan code and via the
@@ -33,6 +34,7 @@ import ckan.lib.maintain as maintain
 from ckan.common import json, _, ungettext, c, g, request, response
 
 log = logging.getLogger(__name__)
+get_action = logic.get_action
 
 PAGINATE_ITEMS_PER_PAGE = 50
 
@@ -413,7 +415,16 @@ class BaseController(WSGIController):
         apikey = unicode(apikey)
         query = model.Session.query(model.User)
         user = query.filter_by(apikey=apikey).first()
-        return user
+        if user:
+            data_dict = {'user_id' : user.id}
+            try:
+                user_can_make_api_call = get_action('user_make_api_call')(data_dict = data_dict)
+            except KeyError:
+                log.info('Can\'t find logic function: user_make_api_call')
+                user_can_make_api_call = True
+            if user_can_make_api_call:
+                return user
+        return None
 
 
 # Include the '_' function in the public names
