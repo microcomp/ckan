@@ -6331,7 +6331,7 @@ msgstr ""
 
 #: ckanext/resourceproxy/controller.py:59
 msgid "Content is too large to be proxied."
-msgstr "Náhľad nie je možný z dôvodu veľkosti súboru."
+msgstr "Ospravedlnujeme sa. Údaje nie je možné zobraziť. Veľkosť údajov presahuje povolený limit. Ak chcete údaje zobraziť, prosím stiahnite si ich."
 
 #: ckanext/resourceproxy/controller.py:62
 #, python-format
