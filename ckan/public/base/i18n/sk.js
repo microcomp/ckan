@@ -4,6 +4,14 @@
     "lang": "sk",
     "plural-forms": "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;"
   },
+  "An Error Occurred": [
+    null,
+    "Vyskytla sa chyba"
+  ],
+  "Are you sure you want to perform this action?": [
+    null,
+    "Ste si istí, že chcete vykonať túto akciu?"
+  ],
   "Cancel": [
     null,
     "Zrušiť"
@@ -11,6 +19,10 @@
   "Edit": [
     null,
     "Upraviť"
+  ],
+  "Confirm": [
+    null,
+    "Potvrdiť"
   ],
   "Follow": [
     null,
@@ -55,6 +67,10 @@
   "show more": [
     null,
     "ukázať viac"
+  ],
+  "Please Confirm Action": [
+    null,
+    "Prosím potvrďte akciu"
   ],
   "Remove": [
     null,
