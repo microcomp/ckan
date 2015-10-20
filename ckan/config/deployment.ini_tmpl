@@ -43,19 +43,18 @@ who.log_file = %(cache_dir)s/who_log.ini
 
 
 ## Database Settings
-sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default
-
-#ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default
-#ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_default
+sqlalchemy.url = postgresql://${db.ckan.user}:${db.ckan.user.passwd}@${db.hostname}/${db.ckan.name}
+ckan.datastore.write_url = postgresql://${db.ckan.user}:${db.ckan.user.passwd}@${db.hostname}/${db.datastore.name}
+ckan.datastore.read_url = postgresql://${db.datastore.user}:${db.datastore.user.passwd}@${db.hostname}/${db.datastore.name}
 
 
 ## Site Settings
 
-ckan.site_url =
+ckan.site_url = ${ckan.site_ur}
 
 
 ## Authorization Settings
-
+ckan.dataset_form.require_resources = false
 ckan.auth.anon_create_dataset = false
 ckan.auth.create_unowned_dataset = false
 ckan.auth.create_dataset_if_not_in_organization = false
@@ -71,7 +70,7 @@ ckan.auth.roles_that_cascade_to_sub_groups = admin
 ## Search Settings
 
 ckan.site_id = default
-solr_url = http://127.0.0.1:8080/solr
+solr_url = ${solr_url}
 
 #ckan.simple_search = 1
 
@@ -83,7 +82,7 @@ solr_url = http://127.0.0.1:8080/solr
 #       Add ``pdf_preview`` to enable the resource preview for PDFs
 #		Add ``resource_proxy`` to enable resorce proxying and get around the
 #		same origin policy
-ckan.plugins = stats text_preview recline_preview datastore datapusher
+ckan.plugins = ${ckan.plugins}
 
 ## Front-End Settings
 ckan.site_title = CKAN
@@ -137,6 +136,55 @@ ckan.activity_list_limit = 31
 ckan.activity_streams_email_notifications = true
 ckan.email_notifications_since = 2 days
 
+#spatial
+ckan.spatial.srid = 4326
+ckanext.spatial.common_map.type = custom
+ckanext.spatial.common_map.subdomains = 1234
+ckanext.spatial.common_map.custom.url = https://a.tile.openstreetmap.org/{z}/{x}/{y}.png
+ckan.profile_update_url = https://portal.vyvoj.upvs.globaltel.sk/sk/moj-profil/upravenie-kontaktnych-udajov
+
+#geomodul
+ckan.geomodul.url = ${ckan.geomodul.url}
+
+#wiki
+ckan.xwiki.url = ${ckan.xwiki.url}
+
+#cas
+ckan.user_provision.secret= ${ckan.user_provision.secret}
+
+#edem
+ckan.auditlog_client_path = /opt/AuditLogClient/audit-log-client-1.0.jar
+
+#torrent
+ckan.torrent_tracker_url = ${ckan.torrent_tracker_url}
+
+#sparql
+ckanext.sparql.endpoint_url=${ckanext.sparql.endpoint_url}
+ckanext.sparql.hide_endpoint_url = false
+
+# storage admin
+edemo.storage.admin.datastore.schema = public
+edemo.storage.admin.sparql.endpoint = ${edemo.storage.admin.sparql.endpoint}
+edemo.storage.admin.virtuoso.dsn = ${edemo.storage.admin.virtuoso.dsn}
+
+# odn-pipeline
+odn.uv.pipeline.allow.create = True
+
+# pipeline
+odn.uv.url = ${odn.uv.url}
+odn.uv.api.url = ${odn.uv.api.url}
+odn.uv.timeout = 5
+
+# uv rest api authorization
+odn.uv.api.auth.username = ${odn.uv.api.auth.username}
+odn.uv.api.auth.password = ${odn.uv.api.auth.password}
+
+# resource update api (L-Catalog <-> IC), the URL are quoted in code
+odn.storage.rdf.uri.template = ${odn.storage.rdf.uri.template}
+odn.storage.file.uri.template = ${odn.storage.file.uri.template}
+
+# internal_api
+ckan.auth.internal_api.token = ${ckan.auth.internal_api.token}
 
 ## Email settings
 
@@ -185,7 +233,7 @@ formatter = generic
 [handler_filelog]
 class = logging.handlers.TimedRotatingFileHandler
 args = ('/var/log/ckan/ckan.log', 'midnight', 1, 31)
-level = DEBUG
+level = ${handler.filelog.level}
 formatter = generic
 
 [formatter_generic]
