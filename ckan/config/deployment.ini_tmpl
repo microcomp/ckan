@@ -50,7 +50,7 @@ ckan.datastore.read_url = postgresql://${db.datastore.user}:${db.datastore.user.
 
 ## Site Settings
 
-ckan.site_url = ${ckan.site_ur}
+ckan.site_url = ${ckan.site_url}
 
 
 ## Authorization Settings

@@ -57,7 +57,7 @@ lxml>=2.3
 pyparsing==1.5.6
 -e /usr/lib/ckan/default/src/ckanext-add_to_profile
 -e /usr/lib/ckan/default/src/ckanext-api_management
--e /usr/lib/ckan/default/src/ckanext-apps_and_ideas
+-e /usr/lib/ckan/default/src/ckanext-applications
 -e /usr/lib/ckan/default/src/ckanext-archiver
 -e /usr/lib/ckan/default/src/ckanext-audit
 /usr/lib/ckan/default/src/ckanext-audited-datastore-api
