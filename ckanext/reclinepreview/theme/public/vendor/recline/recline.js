@@ -1977,9 +1977,9 @@ my.Flot = Backbone.View.extend({
     <div class="recline-flot"> \
       <div class="panel graph" style="display: block;"> \
         <div class="js-temp-notice alert alert-block"> \
-          <h3 class="alert-heading">Hey there!</h3> \
-          <p>There\'s no graph here yet because we don\'t know what fields you\'d like to see plotted.</p> \
-          <p>Please tell us by <strong>using the menu on the right</strong> and a graph will automatically appear.</p> \
+          <h3 class="alert-heading">Vitajte!</h3> \
+          <p>Zatiaľ nebol vybraný žiadny graf, preto nevieme aké stĺpce by ste chceli zobraziť v grafe.</p> \
+          <p>Prosím zadajte údaje <strong>použitím menu vpravo</strong> a graf bude automaticky zobrazený.</p> \
         </div> \
       </div> \
     </div> \
@@ -2300,20 +2300,20 @@ my.FlotControls = Backbone.View.extend({
   <div class="editor"> \
     <form class="form-stacked"> \
       <div class="clearfix"> \
-        <label>Graph Type</label> \
+        <label>Typ grafu</label> \
         <div class="input editor-type"> \
           <select> \
-          <option value="lines-and-points">Lines and Points</option> \
-          <option value="lines">Lines</option> \
-          <option value="points">Points</option> \
-          <option value="bars">Bars</option> \
-          <option value="columns">Columns</option> \
+          <option value="lines-and-points">Čiarový so značkami</option> \
+          <option value="lines">Čiarový</option> \
+          <option value="points">XY (závislosť)</option> \
+          <option value="bars">Pruhový</option> \
+          <option value="columns">Stĺpcový</option> \
           </select> \
         </div> \
-        <label>Group Column (Axis 1)</label> \
+        <label>Skupinový stĺpec (Os 1)</label> \
         <div class="input editor-group"> \
           <select> \
-          <option value="">Please choose ...</option> \
+          <option value="">Prosím vyberte ...</option> \
           {{#fields}} \
           <option value="{{id}}">{{label}}</option> \
           {{/fields}} \
@@ -2323,10 +2323,10 @@ my.FlotControls = Backbone.View.extend({
         </div> \
       </div> \
       <div class="editor-buttons"> \
-        <button class="btn editor-add">Add Series</button> \
+        <button class="btn editor-add">Pridaj rad</button> \
       </div> \
       <div class="editor-buttons editor-submit" comment="hidden temporarily" style="display: none;"> \
-        <button class="editor-save">Save</button> \
+        <button class="editor-save">Uložiť</button> \
         <input type="hidden" class="editor-id" value="chart-1" /> \
       </div> \
     </form> \
@@ -2334,8 +2334,8 @@ my.FlotControls = Backbone.View.extend({
 ',
   templateSeriesEditor: ' \
     <div class="editor-series js-series-{{seriesIndex}}"> \
-      <label>Series <span>{{seriesName}} (Axis 2)</span> \
-        [<a href="#remove" class="action-remove-series">Remove</a>] \
+      <label>Rad <span>{{seriesName}} (Os 2)</span> \
+        [<a href="#remove" class="action-remove-series">Odstrániť</a>] \
       </label> \
       <div class="input"> \
         <select> \
@@ -2477,9 +2477,9 @@ my.Flotr2 = Backbone.View.extend({
     <div class="recline-graph"> \
       <div class="panel graph" style="display: block;"> \
         <div class="js-temp-notice alert alert-block"> \
-          <h3 class="alert-heading">Hey there!</h3> \
-          <p>There\'s no graph here yet because we don\'t know what fields you\'d like to see plotted.</p> \
-          <p>Please tell us by <strong>using the menu on the right</strong> and a graph will automatically appear.</p> \
+      <h3 class="alert-heading">Vitajte!</h3> \
+      <p>Zatiaľ nebol vybraný žiadny graf, preto nevieme aké stĺpce by ste chceli zobraziť v grafe.</p> \
+      <p>Prosím zadajte údaje <strong>použitím menu vpravo</strong> a graf bude automaticky zobrazený.</p> \
         </div> \
       </div> \
     </div> \
@@ -3667,13 +3667,13 @@ my.MapMenu = Backbone.View.extend({
         <div class="editor-field-type"> \
             <label class="radio"> \
               <input type="radio" id="editor-field-type-latlon" name="editor-field-type" value="latlon" checked="checked"/> \
-              Latitude / Longitude fields</label> \
+              Zemepisná šírka / dĺžka polia</label> \
             <label class="radio"> \
               <input type="radio" id="editor-field-type-geom" name="editor-field-type" value="geom" /> \
-              GeoJSON field</label> \
+              GeoJSON pole</label> \
         </div> \
         <div class="editor-field-type-latlon"> \
-          <label>Latitude field</label> \
+          <label>Zemepisná šírka</label> \
           <div class="input editor-lat-field"> \
             <select> \
             <option value=""></option> \
@@ -3682,7 +3682,7 @@ my.MapMenu = Backbone.View.extend({
             {{/fields}} \
             </select> \
           </div> \
-          <label>Longitude field</label> \
+          <label>Zemepisná dĺžka</label> \
           <div class="input editor-lon-field"> \
             <select> \
             <option value=""></option> \
@@ -3693,7 +3693,7 @@ my.MapMenu = Backbone.View.extend({
           </div> \
         </div> \
         <div class="editor-field-type-geom" style="display:none"> \
-          <label>Geometry field (GeoJSON)</label> \
+          <label>Geometria (GeoJSON)</label> \
           <div class="input editor-geom-field"> \
             <select> \
             <option value=""></option> \
@@ -3705,15 +3705,15 @@ my.MapMenu = Backbone.View.extend({
         </div> \
       </div> \
       <div class="editor-buttons"> \
-        <button class="btn editor-update-map">Update</button> \
+        <button class="btn editor-update-map">Aktualizovať</button> \
       </div> \
       <div class="editor-options" > \
         <label class="checkbox"> \
           <input type="checkbox" id="editor-auto-zoom" value="autozoom" checked="checked" /> \
-          Auto zoom to features</label> \
+          Funkcia automatické priblíženie</label> \
         <label class="checkbox"> \
           <input type="checkbox" id="editor-cluster" value="cluster"/> \
-          Cluster markers</label> \
+          Zhromaždiť značky</label> \
       </div> \
       <input type="hidden" class="editor-id" value="map-1" /> \
     </form> \
@@ -3945,7 +3945,7 @@ my.MultiView = Backbone.View.extend({
         </div> \
       </div> \
       <div class="recline-results-info"> \
-        <span class="doc-count">{{recordCount}}</span> records\
+        <span class="doc-count">{{recordCount}}</span> záznamov\
       </div> \
       <div class="menu-right"> \
         <div class="btn-group" data-toggle="buttons-checkbox"> \
@@ -5278,11 +5278,11 @@ my.FilterEditor = Backbone.View.extend({
   className: 'recline-filter-editor well', 
   template: ' \
     <div class="filters"> \
-      <h3>Filters</h3> \
-      <a href="#" class="js-add-filter">Add filter</a> \
+      <h3>Filtre</h3> \
+      <a href="#" class="js-add-filter">Pridať filter</a> \
       <form class="form-stacked js-add" style="display: none;"> \
         <fieldset> \
-          <label>Field</label> \
+          <label>Stĺpec</label> \
           <select class="fields"> \
             {{#fields}} \
             <option value="{{id}}">{{label}}</option> \
@@ -5290,11 +5290,11 @@ my.FilterEditor = Backbone.View.extend({
           </select> \
           <label>Filter type</label> \
           <select class="filterType"> \
-            <option value="term">Value</option> \
-            <option value="range">Range</option> \
-            <option value="geo_distance">Geo distance</option> \
+            <option value="term">Hodnota</option> \
+            <option value="range">Rozsah</option> \
+            <option value="geo_distance">Geo vzdialenosť</option> \
           </select> \
-          <button type="submit" class="btn">Add</button> \
+          <button type="submit" class="btn">Pridať</button> \
         </fieldset> \
       </form> \
       <form class="form-stacked js-edit"> \
@@ -5302,7 +5302,7 @@ my.FilterEditor = Backbone.View.extend({
           {{{filterRender}}} \
         {{/filters}} \
         {{#filters.length}} \
-        <button type="submit" class="btn">Update</button> \
+        <button type="submit" class="btn">Aktualizovať</button> \
         {{/filters.length}} \
       </form> \
     </div> \
@@ -5510,9 +5510,9 @@ my.QueryEditor = Backbone.View.extend({
     <form action="" method="GET" class="form-inline"> \
       <div class="input-prepend text-query"> \
         <span class="add-on"><i class="icon-search"></i></span> \
-        <input type="text" name="q" value="{{q}}" class="span2" placeholder="Search data ..." class="search-query" /> \
+        <input type="text" name="q" value="{{q}}" class="span2" placeholder="Hľadať v dátach ..." class="search-query" /> \
       </div> \
-      <button type="submit" class="btn">Go &raquo;</button> \
+      <button type="submit" class="btn">Hľadaj &raquo;</button> \
     </form> \
   ',
 
@@ -5551,17 +5551,17 @@ my.ValueFilter = Backbone.View.extend({
   className: 'recline-filter-editor well', 
   template: ' \
     <div class="filters"> \
-      <h3>Filters</h3> \
-      <button class="btn js-add-filter add-filter">Add filter</button> \
+      <h3>Filtre</h3> \
+      <button class="btn js-add-filter add-filter">Pridať filter</button> \
       <form class="form-stacked js-add" style="display: none;"> \
         <fieldset> \
-          <label>Field</label> \
+          <label>Stĺpec</label> \
           <select class="fields"> \
             {{#fields}} \
             <option value="{{id}}">{{label}}</option> \
             {{/fields}} \
           </select> \
-          <button type="submit" class="btn">Add</button> \
+          <button type="submit" class="btn">Pridať</button> \
         </fieldset> \
       </form> \
       <form class="form-stacked js-edit"> \
@@ -5569,7 +5569,7 @@ my.ValueFilter = Backbone.View.extend({
           {{{filterRender}}} \
         {{/filters}} \
         {{#filters.length}} \
-        <button type="submit" class="btn update-filter">Update</button> \
+        <button type="submit" class="btn update-filter">Aktualizovať</button> \
         {{/filters.length}} \
       </form> \
     </div> \
