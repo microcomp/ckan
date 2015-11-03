@@ -30,7 +30,7 @@ class DatastoreController(base.BaseController):
         except p.toolkit.ObjectNotFound:
             base.abort(404, p.toolkit._('DataStore resource not found'))
 
-        pylons.response.headers['Content-Type'] = 'text/csv'
+        pylons.response.headers['Content-Type'] = 'text/csv; charset=UTF-8; header=present'
         pylons.response.headers['Content-disposition'] = \
             'attachment; filename="{name}.csv"'.format(name=resource_id)
         f = StringIO.StringIO()
