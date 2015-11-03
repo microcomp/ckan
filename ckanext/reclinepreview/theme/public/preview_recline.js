@@ -103,21 +103,21 @@ this.ckan.module('reclinepreview', function (jQuery, _) {
       var views = [
         {
           id: 'grid',
-          label: 'Grid',
+          label: 'Tabuľka',
           view: new recline.View.SlickGrid({
             model: dataset
           })
         },
         {
           id: 'graph',
-          label: 'Graph',
+          label: 'Graf',
           view: new recline.View.Graph({
             model: dataset
           })
         },
         {
           id: 'map',
-          label: 'Map',
+          label: 'Mapa',
           view: new recline.View.Map({
             model: dataset
           })
@@ -127,7 +127,7 @@ this.ckan.module('reclinepreview', function (jQuery, _) {
       var sidebarViews = [
         {
           id: 'valueFilter',
-          label: 'Filters',
+          label: 'Filtre',
           view: new recline.View.ValueFilter({
             model: dataset
           })
