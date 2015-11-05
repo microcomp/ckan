@@ -1,5 +1,6 @@
 import StringIO
 import unicodecsv as csv
+import os
 
 import pylons
 
@@ -7,11 +8,17 @@ import ckan.plugins as p
 import ckan.lib.base as base
 import ckan.model as model
 
-from ckan.common import request
 
+from ckan.common import request, response
+
+def _get_filename(resource_id, storage_path):
+    directory = os.path.join(storage_path, 'resources', resource_id[0:3], resource_id[3:6])
+    filepath = os.path.join(directory, resource_id[6:])
+    return filepath
 
 class DatastoreController(base.BaseController):
     def dump(self, resource_id):
+        limit = pylons.config.get('datastore.dump.limit', 10000)
         context = {
             'model': model,
             'session': model.Session,
@@ -20,9 +27,25 @@ class DatastoreController(base.BaseController):
 
         data_dict = {
             'resource_id': resource_id,
-            'limit': request.GET.get('limit', 100000),
+            'limit': limit,
             'offset': request.GET.get('offset', 0)
         }
+        request_all = request.GET.get('all', False)
+        if request_all:
+            #try to provide file instead of generating CSV
+            storage_path = pylons.config.get('ckan.storage_path')
+            filepath = _get_filename(resource_id, storage_path)
+            if os.path.isfile(filepath):
+                file_size = os.path.getsize(filepath)
+                headers = [('Content-Disposition', 'attachment; filename=\"' + resource_id+'.fs.csv' + '\"'),
+                       ('Content-Type', 'text/csv; charset=UTF-8; header=present'),
+                       ('Content-Length', str(file_size))]
+        
+                from paste.fileapp import FileApp
+                fapp = FileApp(filepath, headers=headers)
+                return fapp(request.environ, self.start_response)
+            else:
+                base.abort(404, _('Resource not found'))
 
         action = p.toolkit.get_action('datastore_search')
         try:
