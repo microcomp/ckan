@@ -6243,7 +6243,7 @@ msgid ""
 "Resource consists of more than {0} records. Therefore this resource will "
 "be converted to CSV file in order to provided for users. Conversion will "
 "be executed within 24 hours from upload. Please try it again later."
-msgstr "Dátový zdroj obsahuje viac ako {0} záznamov. Vzhľadom na to bude konvertovaný do CSV súboru za účelom dalšieho poskytovania. Konverzia prebehne do 24 hodín od nahratia dátového zdroja. Prosím, skúste neskôr."
+msgstr "Dátový zdroj obsahuje viac ako {0} záznamov. Vzhľadom na to bude konvertovaný do CSV súboru za účelom daľšieho poskytovania. Konverzia prebehne do 24 hodín od nahratia dátového zdroja. Prosím, skúste neskôr. Prípadne môžete získať nekonvertované údaje prostredníctvom volania API funkcií."
 
 #: ckanext/datastore/logic/action.py:210 ckanext/datastore/logic/action.py:260
 #: ckanext/datastore/logic/action.py:342 ckanext/datastore/logic/action.py:426
