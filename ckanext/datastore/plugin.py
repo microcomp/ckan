@@ -116,7 +116,8 @@ class DatastorePlugin(p.SingletonPlugin):
                     func(context, {
                         'connection_url': self.write_url,
                         'resource_id': resource.id})
-                except p.toolkit.ObjectNotFound:
+                except p.toolkit.ObjectNotFound, e:
+                    log.exception(e)
                     log.info('something went wrong in datastore')
                     pass
 

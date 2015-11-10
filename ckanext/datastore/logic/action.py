@@ -15,6 +15,12 @@ _validate = ckan.lib.navl.dictization_functions.validate
 
 WHITELISTED_RESOURCES = ['_table_metadata']
 
+def _call_action(name, context, data_dict):
+    try:
+        return logic.get_action(name)(context, data_dict)
+    except KeyError:
+        log.info('Can\'t find logic function: %s', name)
+        return None
 
 def datastore_create(context, data_dict):
     '''Adds a new table to the DataStore.
@@ -127,7 +133,8 @@ def datastore_create(context, data_dict):
 
     # create a private datastore resource, if necessary
     model = _get_or_bust(context, 'model')
-    resource = model.Resource.get(data_dict['resource_id'])
+    resource_id = data_dict['resource_id']
+    resource = model.Resource.get(resource_id)
     legacy_mode = 'ckan.datastore.read_url' not in pylons.config
     status = resource.extras.get('status', '')
     if not legacy_mode and (resource.resource_group.package.private or status=='private'):
@@ -137,6 +144,8 @@ def datastore_create(context, data_dict):
     result.pop('id', None)
     result.pop('private', None)
     result.pop('connection_url')
+    context['ignore_auth'] = True
+    _call_action('resource_table_status_update',context, {'resource_id' : resource_id})
     return result
 
 
@@ -204,6 +213,8 @@ def datastore_upsert(context, data_dict):
     result = db.upsert(context, data_dict)
     result.pop('id', None)
     result.pop('connection_url')
+    context['ignore_auth'] = True
+    _call_action('resource_table_status_update', context, {'resource_id' : res_id})
     return result
 
 
@@ -252,6 +263,8 @@ def datastore_delete(context, data_dict):
     result = db.delete(context, data_dict)
     result.pop('id', None)
     result.pop('connection_url')
+    context['ignore_auth'] = True
+    _call_action('resource_table_status_update', context, {'resource_id' : res_id})
     return result
 
 
