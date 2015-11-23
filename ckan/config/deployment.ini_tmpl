@@ -190,12 +190,12 @@ ckan.auth.internal_api.token = ${ckan.auth.internal_api.token}
 
 email_to = you@yourdomain.com
 error_email_from = paste@localhost
-smtp.server = localhost
+smtp.server = ${smtp_server}
 smtp.starttls = False
 #smtp.user = your_username@gmail.com
 #smtp.password = your_password
-smtp.mail_from = spravca@data.gov.sk
-smtp.mail_from_name = Spravca MOD
+smtp.mail_from = ${smtp.mail_from}
+smtp.mail_from_name = ${smtp.mail_from_name}
 
 
 ## Logging configuration
