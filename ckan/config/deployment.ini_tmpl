@@ -138,6 +138,7 @@ ckan.email_notifications_since = 2 days
 
 #spatial
 ckan.spatial.srid = 4326
+ckan.spatial.intersection = False
 ckanext.spatial.common_map.type = custom
 ckanext.spatial.common_map.subdomains = 1234
 ckanext.spatial.common_map.custom.url = https://a.tile.openstreetmap.org/{z}/{x}/{y}.png
