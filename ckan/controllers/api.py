@@ -708,12 +708,13 @@ class ApiController(base.BaseController):
     def dataset_autocomplete(self):
         q = request.params.get('incomplete', '')
         limit = request.params.get('limit', 10)
+        owner_org = request.params.get('owner_org', None)
         package_dicts = []
         if q:
             context = {'model': model, 'session': model.Session,
                        'user': c.user or c.author, 'auth_user_obj': c.userobj}
 
-            data_dict = {'q': q, 'limit': limit}
+            data_dict = {'q': q, 'limit': limit, 'owner_org' : owner_org}
 
             package_dicts = get_action('package_autocomplete')(context,
                                                                data_dict)

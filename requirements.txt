@@ -60,7 +60,7 @@ pyparsing==1.5.6
 -e git+https://github.com/microcomp/ckanext-apps_and_ideas.git@master#egg=ckanext-apps_and_ideas
 -e git+https://github.com/microcomp/ckanext-archiver.git@master#egg=ckanext-archiver
 -e git+https://github.com/microcomp/ckanext-audit.git@master#egg=ckanext-audit
-git+https://github.com/OpenDataNode/ckanext-audited-datastore-api.git@master#egg=ckanext-audited-datastore-api
+-e git+https://github.com/OpenDataNode/ckanext-audited-datastore-api.git@EDEM#egg=ckanext-audited-datastore-api
 -e git+https://github.com/microcomp/ckanext-cas.git@master#egg=ckanext-cas
 -e git+https://github.com/microcomp/ckanext-dataset.git@master#egg=ckanext-dataset
 -e git+https://github.com/microcomp/ckanext-dataset_comments.git@master#egg=ckanext-dataset_comments
@@ -74,7 +74,7 @@ git+https://github.com/OpenDataNode/ckanext-audited-datastore-api.git@master#egg
 -e git+https://github.com/microcomp/ckanext-sla.git@master#egg=ckanext-sla
 -e git+https://github.com/microcomp/ckanext-sparql.git@master#egg=ckanext-sparql
 -e git+https://github.com/microcomp/ckanext-spatial.git@master#egg=ckanext-spatial
-git+https://github.com/microcomp/ckanext-storage-admin.git@develop#egg=ckanext-storage-admin
+-e git+https://github.com/microcomp/ckanext-storage-admin.git@develop#egg=ckanext-storage-admin
 -e git+https://github.com/microcomp/ckanext-storage-admin-gui.git@master#egg=ckanext-storage-admin-gui
 -e git+https://github.com/microcomp/ckanext-tags.git@master#egg=ckanext-tags
 -e git+https://github.com/microcomp/ckanext-torrent.git@master#egg=ckanext-torrent
