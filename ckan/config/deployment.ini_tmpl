@@ -51,6 +51,8 @@ ckan.datastore.read_url = postgresql://${db.datastore.user}:${db.datastore.user.
 ## Site Settings
 
 ckan.site_url = ${ckan.site_url}
+ckan.internal_site_url = ${ckan.internal_site_url}
+ckan.profile_update_url = ${ckan.profile_update_url}
 
 
 ## Authorization Settings
@@ -142,7 +144,6 @@ ckan.spatial.intersection = False
 ckanext.spatial.common_map.type = custom
 ckanext.spatial.common_map.subdomains = 1234
 ckanext.spatial.common_map.custom.url = https://a.tile.openstreetmap.org/{z}/{x}/{y}.png
-ckan.profile_update_url = https://portal.vyvoj.upvs.globaltel.sk/sk/moj-profil/upravenie-kontaktnych-udajov
 
 #geomodul
 ckan.geomodul.url = ${ckan.geomodul.url}
@@ -151,6 +152,7 @@ ckan.geomodul.url = ${ckan.geomodul.url}
 ckan.xwiki.url = ${ckan.xwiki.url}
 
 #cas
+ckan.cas_renew_url = ${ckan.cas_renew_url}
 ckan.user_provision.secret= ${ckan.user_provision.secret}
 
 #edem
