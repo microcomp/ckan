@@ -54,7 +54,6 @@ ckan.site_url = ${ckan.site_url}
 ckan.internal_site_url = ${ckan.internal_site_url}
 ckan.profile_update_url = ${ckan.profile_update_url}
 
-
 ## Authorization Settings
 ckan.dataset_form.require_resources = false
 ckan.auth.anon_create_dataset = false
@@ -193,7 +192,7 @@ ckan.auth.internal_api.token = ${ckan.auth.internal_api.token}
 
 email_to = you@yourdomain.com
 error_email_from = paste@localhost
-smtp.server = ${smtp_server}
+smtp.server = ${smtp.server}
 smtp.starttls = False
 #smtp.user = your_username@gmail.com
 #smtp.password = your_password
