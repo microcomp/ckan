@@ -199,6 +199,97 @@ smtp.starttls = False
 smtp.mail_from = ${smtp.mail_from}
 smtp.mail_from_name = ${smtp.mail_from_name}
 
+## user req ulrs
+ckan.user_req.A_zpu.name = ZverejnenÈ poûiadavky na ˙daje
+ckan.user_req.A_zpu.title = ZverejnenÈ poûiadavky na ˙daje
+ckan.user_req.A_zpu.url = https://edov.edovfix.gov.sk/MPT.Web/DataRequest/Search
+ckan.user_req.A_zpu.privilege = all
+
+ckan.user_req.B_apuz.name =Ako pouûiù uvedenÈ ûiadosti
+ckan.user_req.B_apuz.title =Ako pouûiù uvedenÈ ûiadosti
+ckan.user_req.B_apuz.url = https://data.edovfix.gov.sk/wiki/bin/view/applications
+ckan.user_req.B_apuz.privilege =all
+
+ckan.user_req.C_pnzu.name  = Podnet na zverejenenie ˙dajov
+ckan.user_req.C_pnzu.title  = Podnet na zverejenenie ˙dajov
+ckan.user_req.C_pnzu.url  = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142457
+ckan.user_req.C_pnzu.privilege = all
+
+ckan.user_req.D_pnzku.name = Podnet na zlepöenie kvality ˙dajov
+ckan.user_req.D_pnzku.title = Podnet na zlepöenie kvality ˙dajov
+ckan.user_req.D_pnzku.url = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142450
+ckan.user_req.D_pnzku.privilege= all
+
+ckan.user_req.E_zosu.name  = éiadosù o sprÌstupnenie ˙dajov (Z·kon Ë. 211/2000 Z.z.)
+ckan.user_req.E_zosu.title  = éiadosù o sprÌstupnenie ˙dajov (Z·kon Ë. 211/2000 Z.z.)
+ckan.user_req.E_zosu.url  = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142447
+ckan.user_req.E_zosu.privilege = all
+
+ckan.user_req.F_zopSLA.name  = éiadosù o pridelenie SLA
+ckan.user_req.F_zopSLA.title  = éiadosù o pridelenie SLA
+ckan.user_req.F_zopSLA.url  = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142446
+ckan.user_req.F_zopSLA.privilege = all
+
+ckan.user_req.G_zoudz.name  = éiadosù o uloûenie d·tovÈho zdroja
+ckan.user_req.G_zoudz.title  = éiadosù o uloûenie d·tovÈho zdroja
+ckan.user_req.G_zoudz.url  = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142448
+ckan.user_req.G_zoudz.privilege = MOD-R-PO
+
+
+ckan.user_req.H_zoia.name  = éiadosù o integr·ciu aplik·cie
+ckan.user_req.H_zoia.title  = éiadosù o integr·ciu aplik·cie
+ckan.user_req.H_zoia.url  = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142459
+ckan.user_req.H_zoia.privilege = all
+
+ckan.user_req.I_zora.name = éiadosù o registr·ciu aplik·cie
+ckan.user_req.I_zora.title = éiadosù o registr·ciu aplik·cie
+ckan.user_req.I_zora.url = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142458
+ckan.user_req.I_zora.privilege= all
+
+ckan.user_req.J_zorpa.name  = éiadosù o registr·ciu prezentaËnej aplik·cie
+ckan.user_req.J_zorpa.title  = éiadosù o registr·ciu prezentaËnej aplik·cie
+ckan.user_req.J_zorpa.url  = https://schranka.upvsfixnew.gov.sk/FormConstructor/Default.aspx?IdService=142449
+ckan.user_req.J_zorpa.privilege = all
+
+ckan.tools.sparql.name = SPARQL editor
+ckan.tools.sparql.title = SPARQL editor
+ckan.tools.sparql.url = *controller=ckanext.sparql.controller:SparqlController,action=index
+ckan.tools.sparql.privilege = all
+
+ckan.tools.onto_edit.name = Ontologic editor
+ckan.tools.onto_edit.title = Ontologic editor
+ckan.tools.onto_edit.url = ${onto_editor_url}
+ckan.tools.onto_edit.privilege = MOD-R-DATA,MOD-R-TRANS,MOD-R-PO
+
+ckan.tools.transf_mod.name = TransformaËn˝ modul
+ckan.tools.transf_mod.title = TransformaËn˝ modul
+ckan.tools.transf_mod.url = ${unifiedviews_url}
+ckan.tools.transf_mod.privilege = MOD-R-TRANS,MOD-R-PO,MOD-R-DATA
+
+ckan.tools.sprava_ulozisk.name = Spr·va uloûÌsk
+ckan.tools.sprava_ulozisk.title = Spr·va uloûÌsk
+ckan.tools.sprava_ulozisk.url = *controller=ckanext.storage_gui.storageGUI:StorageController,action=list
+ckan.tools.sprava_ulozisk.privilege = MOD-R-DATA
+
+ckan.tools.sprava_tagov.name = Spr·va tagov
+ckan.tools.sprava_tagov.title = Spr·va tagov
+ckan.tools.sprava_tagov.url = *controller=ckanext.tags.tags:TagsController,action=admin_list
+ckan.tools.sprava_tagov.privilege = MOD-R-MODER
+
+ckan.tools.sprava_sla.name = Spr·va SLA
+ckan.tools.sprava_sla.title = Spr·va SLA
+ckan.tools.sprava_sla.url = *controller=ckanext.sla.sla:SlaController,action=list
+ckan.tools.sprava_sla.privilege = MOD-R-DATA
+
+ckan.tools.sprava_apl.name = Spr·va Aplik·cie
+ckan.tools.sprava_apl.title = Spr·va Aplik·cie
+ckan.tools.sprava_apl.url = *controller=ckanext.apps_and_ideas.apps:AppsController,action=list_reports
+ckan.tools.sprava_apl.privilege = MOD-R-APP
+
+ckan.tools.sprava_komentarov.name = Spr·va Koment·rov
+ckan.tools.sprava_komentarov.title = Spr·va Koment·rov
+ckan.tools.sprava_komentarov.url = *controller=ckanext.dataset_comments.comments:CommentsController,action=AdminList
+ckan.tools.sprava_komentarov.privilege = MOD-R-MODER
 
 ## Logging configuration
 [loggers]
