@@ -42,6 +42,8 @@ vdm==0.11
 wsgiref==0.1.2
 zope.interface==4.1.1
 CherryPy==3.6.0
+#ckanext-sla
+hurry.filesize
 #ckanext-archiver
 celery==2.4.2
 kombu==2.1.3
