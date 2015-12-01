@@ -283,7 +283,7 @@ ckan.tools.sprava_sla.privilege = MOD-R-DATA
 
 ckan.tools.sprava_apl.name = Správa Aplikácie
 ckan.tools.sprava_apl.title = Správa Aplikácie
-ckan.tools.sprava_apl.url = *controller=ckanext.apps_and_ideas.apps:AppsController,action=list_reports
+ckan.tools.sprava_apl.url = *controller=ckanext.applications.apps:AppsController,action=list_reports
 ckan.tools.sprava_apl.privilege = MOD-R-APP
 
 ckan.tools.sprava_komentarov.name = Správa Komentárov
