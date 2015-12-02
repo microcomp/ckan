@@ -5,8 +5,7 @@ import datetime
 import ckan.lib.munge as munge
 import logging
 import ckan.logic as logic
-impot ckan.common._ as _
-
+from ckan.common import _
 
 config = pylons.config
 log = logging.getLogger(__name__)
@@ -214,7 +213,7 @@ class ResourceUpload(object):
                 if current_size > max_size:
                     os.remove(tmp_filepath)
                     raise logic.ValidationError(
-                        {'upload': ['File upload too large']}
+                        {'upload': [_('File upload too large')]}
                     )
             output_file.close()
             os.rename(tmp_filepath, filepath)
