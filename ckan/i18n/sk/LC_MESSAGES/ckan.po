@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  CKAN-SK\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-11-06 13:53+0100\n"
+"POT-Creation-Date: 2015-12-01 16:21+0100\n"
 "PO-Revision-Date: 2015-01-14 08:53+0000\n"
 "Last-Translator: Dominik Kapisinsky <kapisinsky@microcomp.sk>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/ckan-"
@@ -1252,6 +1252,10 @@ msgstr "Nezadaný správca"
 #: ckan/lib/package_saver.py:94 ckan/logic/validators.py:109
 msgid "No links are allowed in the log_message."
 msgstr "V log_message nie sú povolené odkazy."
+
+#: ckan/lib/uploader.py:140
+msgid "File upload too large"
+msgstr "Veľkosť súboru presahuje povolený limit"
 
 #: ckan/lib/navl/dictization_functions.py:12
 #: ckan/lib/navl/dictization_functions.py:14
@@ -4368,7 +4372,6 @@ msgstr "Zmeniť detaily"
 #: ckan/templates/user/edit_user_form.html:9
 #: ckan/templates/user/logout_first.html:11
 #: ckan/templates/user/new_user_form.html:5
-#: ckan/templates/user/read_base.html:65
 #: ckan/templates/user/request_reset.html:15
 #: ckan/templates/user/snippets/login_form.html:20
 #: ckan/templates_legacy/user/edit_user_form.html:63
@@ -4558,7 +4561,11 @@ msgstr "Tento používateľ nemá biografiu."
 
 #: ckan/templates/user/read_base.html:62
 msgid "Open ID"
-msgstr "Otvoriť ID"
+msgstr "Open ID"
+
+#: ckan/templates/user/read_base.html:65
+msgid "User Identifier"
+msgstr "Identifikátor"
 
 #: ckan/templates/user/read_base.html:71 ckan/templates/user/read_base.html:85
 msgid "This means only you can see this"
@@ -6243,7 +6250,12 @@ msgid ""
 "Resource consists of more than {0} records. Therefore this resource will "
 "be converted to CSV file in order to provided for users. Conversion will "
 "be executed within 24 hours from upload. Please try it again later."
-msgstr "Dátový zdroj obsahuje viac ako {0} záznamov. Vzhľadom na to bude konvertovaný do CSV súboru za účelom daľšieho poskytovania. Konverzia prebehne do 24 hodín od nahratia dátového zdroja. Prosím, skúste neskôr. Prípadne môžete získať nekonvertované údaje prostredníctvom volania API funkcií."
+msgstr ""
+"Dátový zdroj obsahuje viac ako {0} záznamov. Vzhľadom na to bude "
+"konvertovaný do CSV súboru za účelom daľšieho poskytovania. Konverzia "
+"prebehne do 24 hodín od nahratia dátového zdroja. Prosím, skúste neskôr. "
+"Prípadne môžete získať nekonvertované údaje prostredníctvom volania API "
+"funkcií."
 
 #: ckanext/datastore/logic/action.py:210 ckanext/datastore/logic/action.py:260
 #: ckanext/datastore/logic/action.py:342 ckanext/datastore/logic/action.py:426
@@ -6485,13 +6497,4 @@ msgstr ""
 #: ckanext/stats/templates_legacy/ckanext/stats/leaderboard.html:20
 msgid "Choose area"
 msgstr "Vyberte oblasť"
-
-#~ msgid ""
-#~ "Resource of type \"datastore\" has not"
-#~ " been converted to CSV file yet. "
-#~ "Please try it again later."
-#~ msgstr ""
-#~ "Dátový zdroj typu \"datastore\" nebol "
-#~ "ešte skonvertovaný do CSV súboru. "
-#~ "Prosím, skúste to neskôr."
 

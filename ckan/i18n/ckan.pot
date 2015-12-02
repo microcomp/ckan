@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckan 2.2.2b\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-11-06 13:53+0100\n"
+"POT-Creation-Date: 2015-12-01 16:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1203,6 +1203,10 @@ msgstr ""
 
 #: ckan/lib/package_saver.py:94 ckan/logic/validators.py:109
 msgid "No links are allowed in the log_message."
+msgstr ""
+
+#: ckan/lib/uploader.py:140
+msgid "File upload too large"
 msgstr ""
 
 #: ckan/lib/navl/dictization_functions.py:12
@@ -4202,7 +4206,7 @@ msgstr ""
 
 #: ckan/templates/user/edit_user_form.html:9
 #: ckan/templates/user/logout_first.html:11
-#: ckan/templates/user/new_user_form.html:5 ckan/templates/user/read_base.html:65
+#: ckan/templates/user/new_user_form.html:5
 #: ckan/templates/user/request_reset.html:15
 #: ckan/templates/user/snippets/login_form.html:20
 #: ckan/templates_legacy/user/edit_user_form.html:63
@@ -4391,6 +4395,10 @@ msgstr ""
 
 #: ckan/templates/user/read_base.html:62
 msgid "Open ID"
+msgstr ""
+
+#: ckan/templates/user/read_base.html:65
+msgid "User Identifier"
 msgstr ""
 
 #: ckan/templates/user/read_base.html:71 ckan/templates/user/read_base.html:85
