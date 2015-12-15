@@ -3218,7 +3218,7 @@ msgstr "Vymazané"
 #: ckan/templates/snippets/private.html:2 ckan/templates/user/read_base.html:71
 #: ckan/templates/user/read_base.html:85
 msgid "Private"
-msgstr "Súkromné"
+msgstr "Súkromný"
 
 #: ckan/templates/organization/bulk_process.html:88
 msgid "This organization has no datasets associated to it"
@@ -3603,7 +3603,7 @@ msgid ""
 " add some?</a></p> "
 msgstr ""
 " <p class=\"empty\">Tento dataset neobsahuje dáta, <a "
-"href=\"%(url)s\">prečo nepridať zopár?</a></p> "
+"href=\"%(url)s\">prečo zopár nepridať?</a></p> "
 
 #: ckan/templates/package/search.html:52
 #: ckan/templates_legacy/layout_base.html:145
@@ -3719,7 +3719,7 @@ msgstr "Viditeľnosť"
 
 #: ckan/templates/package/snippets/package_basic_fields.html:91
 msgid "Public"
-msgstr "Verejné"
+msgstr "Verejný"
 
 #: ckan/templates/package/snippets/package_basic_fields.html:110
 msgid "Active"
