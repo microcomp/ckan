@@ -44,14 +44,6 @@
     null,
     "Entrada insuficiente. É necessário ao menos um caractere."
   ],
-  "Link": [
-    null,
-    "Link"
-  ],
-  "Link to a URL on the internet (you can also link to an API)": [
-    null,
-    "Link para uma URL na internet (você também pode ligar a uma API)"
-  ],
   "Loading...": [
     null,
     "Carregando ..."
@@ -68,25 +60,9 @@
     null,
     "Remover"
   ],
-  "Reorder resources": [
-    null,
-    "Reordenar recursos"
-  ],
-  "Reset this": [
-    null,
-    "Reinicializar isso"
-  ],
   "Resource uploaded": [
     null,
     "Recurso enviado"
-  ],
-  "Save order": [
-    null,
-    "Salvar ordem"
-  ],
-  "Saving...": [
-    null,
-    "Salvando..."
   ],
   "Show more": [
     null,
@@ -131,14 +107,6 @@
   "Upload a file": [
     null,
     "Carrega um arquivo"
-  ],
-  "Upload a file on your computer": [
-    null,
-    "Enviar um arquivo do seu computador"
-  ],
-  "You are uploading a file. Are you sure you want to navigate away and stop this upload?": [
-    null,
-    "Você está enviando um arquivo. Tem certeza de que quer navegar para outra página e parar esse envio?"
   ],
   "show less": [
     null,

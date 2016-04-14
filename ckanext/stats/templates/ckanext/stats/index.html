@@ -19,6 +19,7 @@
           </tr>
         </thead>
         <tbody>
+          
           {% for row in c.raw_packages_by_week %}
             <tr>
               <th data-type="date" data-value="{{ row.date.strftime("%s") }}"><time datetime="{{ row.date.isoformat() }}">{{ h.render_datetime(row.date) }}</time></th>
@@ -117,7 +118,7 @@
           <tbody>
             {% for group, num_packages in c.largest_groups %}
               <tr>
-                <td>{{ h.link_to(group.title or group.name, h.url_for(controller=group.type, action='read', id=group.name)) }}</td>
+                <td>{{ h.link_to(group.title or group.name, h.url_for(controller='group', action='read', id=group.name)) }}</td>
                 <td class="metric">{{ num_packages }}</td>
               </tr>
             {% endfor %}
