@@ -156,7 +156,10 @@ class GroupController(base.BaseController):
             context['user_id'] = c.userobj.id
             context['user_is_admin'] = c.userobj.sysadmin
 
-        results = self._action('group_list')(context, data_dict)
+        try:
+            results = self._action('group_list')(context, data_dict)
+        except ValidationError:
+            abort(400, _('Cannot sort by field `%s`' % sort_by))
 
         c.page = h.Page(
             collection=results,
