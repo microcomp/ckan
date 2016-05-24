@@ -46,7 +46,7 @@ def _package_search(data_dict):
      * unless overridden, sets a default item limit
     """
     context = {'model': model, 'session': model.Session,
-               'user': c.user or c.author, 'auth_user_obj': c.userobj}
+               'user': c.user, 'auth_user_obj': c.userobj}
 
     if 'sort' not in data_dict or not data_dict['sort']:
         data_dict['sort'] = 'metadata_modified desc'
@@ -166,16 +166,14 @@ class FeedController(base.BaseController):
                               controller='package',
                               action='search')
 
-    def group(self, id):
-        try:
-            context = {'model': model, 'session': model.Session,
-                       'user': c.user or c.author, 'auth_user_obj': c.userobj}
-            group_dict = logic.get_action('group_show')(context, {'id': id})
-        except logic.NotFound:
-            base.abort(404, _('Group not found'))
+    def _group_or_organization(self, obj_dict, is_org):
 
         data_dict, params = self._parse_url_params()
-        data_dict['fq'] = 'groups:"%s"' % id
+        key = 'owner_org' if is_org else 'groups'
+        data_dict['fq'] = '%s:"%s"' % (key, obj_dict['id'],)
+        group_type = 'organization'
+        if not is_org:
+            group_type = 'group'
 
         item_count, results = _package_search(data_dict)
 
@@ -183,27 +181,61 @@ class FeedController(base.BaseController):
                                                 item_count=item_count,
                                                 limit=data_dict['rows'],
                                                 controller='feed',
-                                                action='group',
-                                                id=id)
-
+                                                action=group_type,
+                                                id=obj_dict['name'])
         feed_url = self._feed_url(params,
                                   controller='feed',
-                                  action='group',
-                                  id=id)
+                                  action=group_type,
+                                  id=obj_dict['name'])
 
-        alternate_url = self._alternate_url(params, groups=id)
+        if is_org:
+            guid = _create_atom_id(u'/feeds/organization/%s.atom' %
+                                   obj_dict['name'])
+            alternate_url = self._alternate_url(params,
+                                                organization=obj_dict['name'])
+            desc = u'Recently created or updated datasets on %s '\
+                'by organization: "%s"' % (g.site_title, obj_dict['title'])
+            title = u'%s - Organization: "%s"' %\
+                (g.site_title, obj_dict['title'])
+
+        else:  # is group
+            guid = _create_atom_id(u'/feeds/group/%s.atom' %
+                                   obj_dict['name'])
+            alternate_url = self._alternate_url(params,
+                                                groups=obj_dict['name'])
+            desc = u'Recently created or updated datasets on %s '\
+                'by group: "%s"' % (g.site_title, obj_dict['title'])
+            title = u'%s - Group: "%s"' %\
+                (g.site_title, obj_dict['title'])
 
         return self.output_feed(results,
-                                feed_title=u'%s - Group: "%s"' %
-                                (g.site_title, group_dict['title']),
-                                feed_description=u'Recently created or '
-                                'updated datasets on %s by group: "%s"' %
-                                (g.site_title, group_dict['title']),
+                                feed_title=title,
+                                feed_description=desc,
                                 feed_link=alternate_url,
-                                feed_guid=_create_atom_id
-                                (u'/feeds/groups/%s.atom' % id),
+                                feed_guid=guid,
                                 feed_url=feed_url,
                                 navigation_urls=navigation_urls)
+
+    def group(self, id):
+        try:
+            context = {'model': model, 'session': model.Session,
+                       'user': c.user, 'auth_user_obj': c.userobj}
+            group_dict = logic.get_action('group_show')(context, {'id': id})
+        except logic.NotFound:
+            base.abort(404, _('Group not found'))
+
+        return self._group_or_organization(group_dict, is_org=False)
+
+    def organization(self, id):
+        try:
+            context = {'model': model, 'session': model.Session,
+                       'user': c.user, 'auth_user_obj': c.userobj}
+            group_dict = logic.get_action('organization_show')(context,
+                                                               {'id': id})
+        except logic.NotFound:
+            base.abort(404, _('Organization not found'))
+
+        return self._group_or_organization(group_dict, is_org=True)
 
     def tag(self, id):
         data_dict, params = self._parse_url_params()
@@ -277,10 +309,10 @@ class FeedController(base.BaseController):
                 fq += ' %s:"%s"' % (param, value)
 
         try:
-            page = int(request.params.get('page', 1))
-        except ValueError:
-            base.abort(400, _('"page" parameter must be a positive integer'))
-        if page < 0:
+            page = int(request.params.get('page', 1))      
+        except ValueError:     
+            base.abort(400, _('"page" parameter must be a positive integer'))      
+        if page < 0:       
             base.abort(400, _('"page" parameter must be a positive integer'))
 
         limit = ITEMS_LIMIT
@@ -384,7 +416,12 @@ class FeedController(base.BaseController):
         """
         urls = dict((rel, None) for rel in 'previous next first last'.split())
 
-        page = int(query.get('page', 1))
+        try:
+            page = int(request.params.get('page', 1))      
+        except ValueError:     
+            base.abort(400, _('"page" parameter must be a positive integer'))      
+        if page < 0:       
+            base.abort(400, _('"page" parameter must be a positive integer'))
 
         # first: remove any page parameter
         first_query = query.copy()
@@ -427,10 +464,10 @@ class FeedController(base.BaseController):
         query parameters.
         """
         try:
-            page = int(request.params.get('page', 1)) or 1
-        except ValueError:
-            base.abort(400, _('"page" parameter must be a positive integer'))
-        if page < 0:
+            page = int(request.params.get('page', 1))      
+        except ValueError:     
+            base.abort(400, _('"page" parameter must be a positive integer'))      
+        if page < 0:       
             base.abort(400, _('"page" parameter must be a positive integer'))
 
         limit = ITEMS_LIMIT
