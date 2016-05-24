@@ -50,6 +50,10 @@ class StatsController(BaseController):
         for week_date, pkgs, num_packages, cumulative_num_packages in c.new_packages_by_week:
             c.new_datasets.append('[new Date(%s), %s]' % (week_date.replace('-', ','), num_packages))
             c.raw_new_datasets.append({'date': h.date_str_to_datetime(week_date), 'new_packages': num_packages})
+
+        c.most_popular_datasets = []
+        c.most_popular_datasets = stats.most_popular_dts()
+
         return p.toolkit.render('ckanext/stats/index.html')
 
     def leaderboard(self, id=None):
@@ -57,4 +61,5 @@ class StatsController(BaseController):
         c.solr_core_url = config.get('ckanext.stats.solr_core_url',
                 'http://solr.okfn.org/solr/ckan')
         return p.toolkit.render('ckanext/stats/leaderboard.html')
+
 
