@@ -2,6 +2,11 @@ from logging import getLogger
 
 import ckan.plugins as p
 
+import ckan.model as model
+
+def dts_id_to_name(id):
+    return model.Session.query(model.Package).filter(model.Package.id == id).first().title
+
 log = getLogger(__name__)
 
 class StatsPlugin(p.SingletonPlugin):
@@ -9,6 +14,7 @@ class StatsPlugin(p.SingletonPlugin):
 
     p.implements(p.IRoutes, inherit=True)
     p.implements(p.IConfigurer, inherit=True)
+    p.implements(p.ITemplateHelpers, inherit=False)
 
     def after_map(self, map):
         map.connect('stats', '/stats',
@@ -25,3 +31,6 @@ class StatsPlugin(p.SingletonPlugin):
         p.toolkit.add_template_directory(config, templates)
         p.toolkit.add_public_directory(config, 'public')
         p.toolkit.add_resource('public/ckanext/stats', 'ckanext_stats')
+
+    def get_helpers(self):
+        return {'dts_id_to_name': dts_id_to_name }
