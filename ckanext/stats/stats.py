@@ -98,6 +98,18 @@ class Stats(object):
         res_users = [(model.Session.query(model.User).get(unicode(user_id)), val) for user_id, val in res_ids]
         return res_users
 
+    @classmethod
+    def most_popular_dts(cls, limit=10):
+        tracking_sum = table('tracking_summary')
+       
+        s = select([tracking_sum.c.package_id, tracking_sum.c.count, tracking_sum.c.recent_views], from_obj=[tracking_sum]).\
+            where(tracking_sum.c.package_id!="~~not~found~~").\
+            order_by(tracking_sum.c.count.desc()).\
+            limit(limit)
+        res_ids = model.Session.execute(s).fetchall()
+        res_dts = [(package_id, count, recent_views) for package_id, count, recent_views in res_ids]
+        return res_dts
+
 class RevisionStats(object):
     @classmethod
     def package_addition_rate(cls, weeks_ago=0):
