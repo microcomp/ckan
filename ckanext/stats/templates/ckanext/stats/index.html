@@ -168,6 +168,30 @@
         </tbody>
       </table>
     </section>
+
+
+     <section id="stats-most-popular-datasets" class="module-content tab-content">
+      <h2>{{ _('Most popular Datasets') }}</h2>
+      <table class="table table-chunky table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>{{ _('Dataset') }}</th>
+            <th class="metric">{{ _('Views') }}</th>
+            <th class="metric">{{ _('Recent views') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dataset, views, recent_views in c.most_popular_datasets %}
+            <tr>
+              <td class="media"><a href={{h.url_for(controller='package', action='read',
+                    id=dataset)}} >{{ h.dts_id_to_name(dataset) }}</a></td>
+              <td class="metric">{{ views }}</td>
+              <td class="metric">{{ recent_views }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
   </article>
 {% endblock %}
 
@@ -183,6 +207,7 @@
         <li class="nav-item"><a href="#stats-largest-groups" data-toggle="tab">{{ _('Largest Groups') }}</a></li>
         <li class="nav-item"><a href="#stats-top-tags" data-toggle="tab">{{ _('Top Tags') }}</a></li>
         <li class="nav-item"><a href="#stats-most-owned" data-toggle="tab">{{ _('Users Owning Most Datasets') }}</a></li>
+        <li class="nav-item"><a href="#stats-most-popular-datasets" data-toggle="tab">{{ _('Most popular Datasets') }}</a></li>
       </ul>
     </nav>
   </section>
