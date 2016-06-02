@@ -1,5 +1,7 @@
 {% extends "page.html" %}
-
+{% block title%}
+{{_('Statistics')}} -data.gov.sk
+{%endblock%}
 {% block breadcrumb_content %}
   <li class="active">{{ 'Statistics' }}</li>
 {% endblock %}
@@ -177,7 +179,7 @@
           <tr>
             <th>{{ _('Dataset') }}</th>
             <th class="metric">{{ _('Views') }}</th>
-            <th class="metric">{{ _('Recent views') }}</th>
+            <th class="metric">{{ _('Views for last 14 days') }}</th>
           </tr>
         </thead>
         <tbody>
