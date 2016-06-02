@@ -438,8 +438,7 @@ msgstr ""
 #: ckan/controllers/home.py:105
 #, python-format
 msgid "%s uses your email address if you need to reset your password."
-msgstr ""
-"%s použije vašu emailovú adresu, ak potrebujete zmeniť svoje prístupové "
+msgstr "%s použije vašu emailovú adresu, ak potrebujete zmeniť svoje prístupové "
 "heslo."
 
 #: ckan/controllers/home.py:109
@@ -6497,3 +6496,16 @@ msgstr ""
 #: ckanext/stats/templates_legacy/ckanext/stats/leaderboard.html:20
 msgid "Choose area"
 msgstr "Vyberte oblasť"
+
+#: ckanext/stats/templates/ckanext/stats/index.html:174
+#: ckanext/stats/templates/ckanext/stats/index.html:210
+msgid "Most popular Datasets"
+msgstr "Najnavštevovanejšie datasety"
+
+#: ckanext/stats/templates/ckanext/stats/index.html:179
+msgid "Views"
+msgstr "Počet zobrazení"
+
+#: ckanext/stats/templates/ckanext/stats/index.html:180
+msgid "Views for last 14 days"
+msgstr "Počet zobrazení za posledných 14 dní"
