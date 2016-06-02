@@ -102,12 +102,12 @@ class Stats(object):
     def most_popular_dts(cls, limit=10):
         tracking_sum = table('tracking_summary')
        
-        s = select([tracking_sum.c.package_id, tracking_sum.c.count, tracking_sum.c.recent_views], from_obj=[tracking_sum]).\
+        s = select([tracking_sum.c.package_id, tracking_sum.c.running_total, tracking_sum.c.recent_views], from_obj=[tracking_sum]).\
             where(tracking_sum.c.package_id!="~~not~found~~").\
             order_by(tracking_sum.c.count.desc()).\
             limit(limit)
         res_ids = model.Session.execute(s).fetchall()
-        res_dts = [(package_id, count, recent_views) for package_id, count, recent_views in res_ids]
+        res_dts = [(package_id, running_total , recent_views) for package_id, running_total , recent_views in res_ids]
         return res_dts
 
 class RevisionStats(object):
