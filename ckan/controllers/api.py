@@ -159,6 +159,14 @@ class ApiController(base.BaseController):
         try:
             function = get_action(logic_function)
         except KeyError:
+            lf = ""
+            illegal_chars = ['<','>',"'",'"','(',')','[',']','=',';','%3C','%3E','%5C%27','%5C%22','%28','%29','%5B','%5D','%3D','%3B']
+            for i in logic_function:
+                if i in illegal_chars:
+                    lf+="?"
+                else:
+                    lf+= i
+            logic_function = lf
             log.error('Can\'t find logic function: %s' % logic_function)
             return self._finish_bad_request(
                 _('Action name not known: %s') % logic_function)
