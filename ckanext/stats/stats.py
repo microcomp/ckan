@@ -1,7 +1,7 @@
 import datetime
 
 from pylons import config
-from sqlalchemy import Table, select, func, and_
+from sqlalchemy import Table, select, func, and_, distinct
 
 import ckan.plugins as p
 import ckan.model as model
@@ -103,12 +103,29 @@ class Stats(object):
         tracking_sum = table('tracking_summary')
        
         s = select([tracking_sum.c.package_id, tracking_sum.c.running_total, tracking_sum.c.recent_views], from_obj=[tracking_sum]).\
-            where(tracking_sum.c.package_id!="~~not~found~~").\
-            order_by(tracking_sum.c.count.desc()).\
-            limit(limit)
+            where(tracking_sum.c.package_id != "~~not~found~~").\
+            order_by(tracking_sum.c.running_total.desc())
+
         res_ids = model.Session.execute(s).fetchall()
-        res_dts = [(package_id, running_total , recent_views) for package_id, running_total , recent_views in res_ids]
-        return res_dts
+        unique = set()
+        res_dts = []
+        for package_id, running_total , recent_views in res_ids:
+            unique.add(package_id)
+
+        res_dts = [(package_id, running_total , recent_views) for package_id, running_total , recent_views in res_ids if package_id in unique]
+        to_remove = []
+        for i in range(len(res_dts)):
+            if res_dts[i][0] in unique:
+                unique.remove(res_dts[i][0])
+            else:
+                to_remove.append(i)
+
+        fin = [res_dts[x] for x in range(len(res_dts)) if x not in to_remove]
+
+        #res_dts = res_ids[:10]
+        #return res_dts
+        fin = fin[:10]
+        return fin
 
 class RevisionStats(object):
     @classmethod
