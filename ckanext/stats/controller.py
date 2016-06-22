@@ -14,16 +14,7 @@ class StatsController(BaseController):
         
         c.most_edited_packages = stats.most_edited_packages()
         c.largest_groups = stats.largest_groups()
-        x = stats.top_tags()
-        c.top_tags = []
-        logging.warning("--------------------------------------------------")
-        for i in x:
-            logging.warning(type(i[0].name))
-            tag = i[0]
-            tag.name = str(i[0].name.encode('ascii', 'replace'))
-            logging.warning(tag.name)
-            c.top_tags.append((tag, i[1]))
-        #c.top_tags = [(x[0].encode('utf-8'), x[1]) for x in c.top_tags]
+        c.top_tags = stats.top_tags()
         c.top_package_owners = stats.top_package_owners()
         c.new_packages_by_week = rev_stats.get_by_week('new_packages')
         c.deleted_packages_by_week = rev_stats.get_by_week('deleted_packages')
