@@ -2421,7 +2421,7 @@ msgstr "CKAN Data API"
 
 #: ckan/templates/ajax_snippets/api_info.html:23
 msgid "Access resource data via a web API with powerful query support"
-msgstr "Pristupujte k dátovým zdrojom pomocou API s mohútnou podporou dotazovania"
+msgstr "Pristupujte k dátovým zdrojom pomocou API s mohutnou podporou dotazovania"
 
 #: ckan/templates/ajax_snippets/api_info.html:26
 #, python-format
