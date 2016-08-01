@@ -35,7 +35,9 @@ CONTENT_TYPES = {
     'html': 'text/html;charset=utf-8',
     'json': 'application/json;charset=utf-8',
 }
-
+def addslashes(s):
+    d = {'"':'\\"', "'":"\\'", "\0":"\\\0", "\\":"\\\\", "<":"\\<", ">":"\\>", "(":"\\(", ")":"\\)" }
+    return ''.join(d.get(c, c) for c in s)
 
 class ApiController(base.BaseController):
 
@@ -161,6 +163,7 @@ class ApiController(base.BaseController):
         except KeyError:
             lf = ""
             illegal_chars = ['<','>',"'",'"','(',')','[',']','=',';','%3C','%3E','%5C%27','%5C%22','%28','%29','%5B','%5D','%3D','%3B']
+
             for i in logic_function:
                 if i in illegal_chars:
                     lf+="?"
@@ -195,14 +198,12 @@ class ApiController(base.BaseController):
             del request_data['callback']
         try:
             result = function(context, request_data)
-            if 'internal_api' == logic_function and request_data.get('action','') == 'resource_download':
-                return result
             return_dict['success'] = True
             return_dict['result'] = result
         except DataError, e:
             log.error('Format incorrect: %s - %s' % (e.error, request_data))
             return_dict['error'] = {'__type': 'Integrity Error',
-                                    'message': e.error,
+                                    'message': addslashes(e.error),
                                     'data': request_data}
             return_dict['success'] = False
             return self._finish(400, return_dict, content_type='json')
@@ -212,14 +213,14 @@ class ApiController(base.BaseController):
             return_dict['success'] = False
             
             if e.extra_msg:
-                return_dict['error']['message'] += ': %s' % e.extra_msg
+                return_dict['error']['message'] += ': %s' % addslashes(e.extra_msg)
 
             return self._finish(403, return_dict, content_type='json')
         except NotFound, e:
             return_dict['error'] = {'__type': 'Not Found Error',
                                     'message': _('Not found')}
             if e.extra_msg:
-                return_dict['error']['message'] += ': %s' % e.extra_msg
+                return_dict['error']['message'] += ': %s' % addslashes(e.extra_msg)
             return_dict['success'] = False
             return self._finish(404, return_dict, content_type='json')
         except ValidationError, e:
@@ -233,18 +234,18 @@ class ApiController(base.BaseController):
         except search.SearchQueryError, e:
             return_dict['error'] = {'__type': 'Search Query Error',
                                     'message': 'Search Query is invalid: %r' %
-                                    e.args}
+                                    addslashes(e.args)}
             return_dict['success'] = False
             return self._finish(400, return_dict, content_type='json')
         except search.SearchError, e:
             return_dict['error'] = {'__type': 'Search Error',
-                                    'message': 'Search error: %r' % e.args}
+                                    'message': 'Search error: %r' % addslashes(e.args)}
             return_dict['success'] = False
             return self._finish(409, return_dict, content_type='json')
         except search.SearchIndexError, e:
             return_dict['error'] = {'__type': 'Search Index Error',
                     'message': 'Unable to add package to search index: %s' %
-                    str(e)}
+                    addslashes(str(e))}
             return_dict['success'] = False
             return self._finish(500, return_dict, content_type='json')
         return self._finish_ok(return_dict)
@@ -319,14 +320,14 @@ class ApiController(base.BaseController):
         action = self._get_action_from_map(action_map, register, subregister)
         if not action:
             return self._finish_bad_request(
-                _('Cannot read entity of this type: %s') % register)
+                _('Cannot read entity of this type: %s') % addslashes(register))
         try:
             return self._finish_ok(action(context, data_dict))
         except NotFound, e:
-            extra_msg = e.extra_msg
+            extra_msg = addslashes(e.extra_msg)
             return self._finish_not_found(extra_msg)
         except NotAuthorized, e:
-            extra_msg = e.extra_msg
+            extra_msg = addslashes(e.extra_msg)
             return self._finish_not_authz(extra_msg)
 
     def _represent_package(self, package):
@@ -387,7 +388,7 @@ class ApiController(base.BaseController):
             error_dict = {
                 'success': False,
                 'error': {'__type': 'Integrity Error',
-                                    'message': e.error,
+                                    'message': addslashes(e.error),
                                     'data': request_data}}
             return self._finish(400, error_dict, content_type='json')
         except search.SearchIndexError:
@@ -425,7 +426,7 @@ class ApiController(base.BaseController):
         if not action:
             return self._finish_bad_request(
                 _('Cannot update entity of this type: %s') %
-                register.encode('utf-8'))
+                addslashes(register.encode('utf-8')))
         try:
             response_data = action(context, data_dict)
             return self._finish_ok(response_data)
@@ -440,15 +441,15 @@ class ApiController(base.BaseController):
             log.error('Validation error: %r' % str(e.error_dict))
             return self._finish(409, e.error_dict, content_type='json')
         except DataError, e:
-            log.error('Format incorrect: %s - %s' % (e.error, request_data))
+            log.error('Format incorrect: %s - %s' % (addslashes(e.error), addslashes(request_data)))
             error_dict = {
                 'success': False,
                 'error': {'__type': 'Integrity Error',
-                                    'message': e.error,
+                                    'message': addslashes(e.error),
                                     'data': request_data}}
             return self._finish(400, error_dict, content_type='json')
         except search.SearchIndexError:
-            log.error('Unable to update search index: %s' % request_data)
+            log.error('Unable to update search index: %s' % addslashes(request_data))
             return self._finish(500, _(u'Unable to update search index') %
                                 request_data)
 
@@ -509,7 +510,7 @@ class ApiController(base.BaseController):
                 try:
                     since_time = h.date_str_to_datetime(since_time_str)
                 except ValueError, inst:
-                    return self._finish_bad_request('ValueError: %s' % inst)
+                    return self._finish_bad_request('ValueError: %s' % addslashes(inst))
             else:
                 return self._finish_bad_request(
                     _("Missing search term ('since_id=UUID' or " +
@@ -522,7 +523,7 @@ class ApiController(base.BaseController):
                 params = MultiDict(self._get_search_params(request.params))
             except ValueError, e:
                 return self._finish_bad_request(
-                    _('Could not read parameters: %r' % e))
+                    _('Could not read parameters: %r' % addslashes(e)))
 
             # if using API v2, default to returning the package ID if
             # no field list is specified
@@ -586,7 +587,7 @@ class ApiController(base.BaseController):
                     _('Bad search option: %s') % e)
         else:
             return self._finish_not_found(
-                _('Unknown register: %s') % register)
+                _('Unknown register: %s') % addslashes(register))
 
     @classmethod
     def _get_search_params(cls, request_params):
