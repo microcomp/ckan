@@ -347,7 +347,7 @@ def _group_or_org_list(context, data_dict, is_org=False):
         sort = 'packages desc'
 
     sort_info = _unpick_search(sort,
-                               allowed_fields=['name', 'packages'],
+                               allowed_fields=['name', 'packages', 'title'],
                                total=1)
 
     all_fields = data_dict.get('all_fields', None)
@@ -371,7 +371,7 @@ def _group_or_org_list(context, data_dict, is_org=False):
 
     groups = query.all()
     group_list = model_dictize.group_list_dictize(groups, context,
-                                                  lambda x:x[sort_info[0][0]],
+                                                  lambda x:x[sort_info[0][0]].lower() if isinstance(x[sort_info[0][0]], basestring) else x[sort_info[0][0]],
                                                   sort_info[0][1] == 'desc')
 
     if not all_fields:
@@ -895,9 +895,10 @@ def resource_show(context, data_dict):
 
     resource = model.Resource.get(id)
     context['resource'] = resource
-
+    log.info('resource id: %s', id)
     if not resource:
-        raise NotFound
+        log.info('resource not found: %s', id)
+        raise NotFound(id)
 
     _check_access('resource_show', context, data_dict)
     resource_dict = model_dictize.resource_dictize(resource, context)
