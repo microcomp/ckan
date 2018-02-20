@@ -17,7 +17,7 @@
 {% block primary_content_inner %}
   <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
   {% block organizations_search_form %}
-    {% snippet 'snippets/search_form.html', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items %}
+    {% snippet 'snippets/search_form.html', sorting=[(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')], type='organization', query=c.q, sorting_selected='title asc' if c.sort_by_selected is none else c.sort_by_selected, count=c.page.item_count, placeholder='asdasd', show_empty=request.params, no_bottom_border=true if c.page.items %}
   {% endblock %}
   {% block organizations_list %}
     {% if c.page.items or request.params %}
@@ -34,7 +34,8 @@
     {% endif %}
   {% endblock %}
   {% block page_pagination %}
-    {{ c.page.pager() }}
+   
+    {{ c.page.pager(sort='' if c.sort_by_selected is none else c.sort_by_selected,q=c.q) }}
   {% endblock %}
 {% endblock %}
 
