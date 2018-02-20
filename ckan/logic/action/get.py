@@ -331,7 +331,7 @@ def _group_or_org_list(context, data_dict, is_org=False):
     groups = data_dict.get('groups')
     ref_group_by = 'id' if api == 2 else 'name'
 
-    sort = data_dict.get('sort', 'name')
+    sort = data_dict.get('sort', 'title asc')
     q = data_dict.get('q')
 
     # order_by deprecated in ckan 1.8
@@ -345,13 +345,12 @@ def _group_or_org_list(context, data_dict, is_org=False):
     # reverse sort to maintain compatibility.
     if sort.strip() == 'packages':
         sort = 'packages desc'
-
+ 	
     sort_info = _unpick_search(sort,
                                allowed_fields=['name', 'packages', 'title'],
-                               total=1)
+                               total=1)	
 
     all_fields = data_dict.get('all_fields', None)
-
 
     query = model.Session.query(model.Group).join(model.GroupRevision)
     query = query.filter(model.GroupRevision.state=='active')
