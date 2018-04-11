@@ -34,8 +34,12 @@
     {% endif %}
   {% endblock %}
   {% block page_pagination %}
-   
-    {{ c.page.pager(sort='' if c.sort_by_selected is none else c.sort_by_selected,q=c.q) }}
+	{% if c.sort_by_selected %}
+		{{ c.page.pager(sort=c.sort_by_selected,q=c.q) }}
+	{% endif %}
+	{% if c.sort_by_selected is none %}
+		{{ c.page.pager(q=c.q) }}
+	{% endif %}
   {% endblock %}
 {% endblock %}
 
