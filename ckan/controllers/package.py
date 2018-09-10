@@ -395,6 +395,10 @@ class PackageController(base.BaseController):
                                        package_type=package_type)
 
         package_saver.PackageSaver().render_package(c.pkg_dict, context)
+        c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})
+        c.fId = id
+        c.fType = "dataset"
+        c.following = get_action("am_following_dataset")(context=context,data_dict={'id':id})
 
         template = self._read_template(package_type)
         template = template[:template.index('.') + 1] + format
@@ -632,7 +636,8 @@ class PackageController(base.BaseController):
                     and key != 'resource_type'):
                     data_provided = True
                     break
-
+            log.info('data provided: %s', data_provided)
+            log.info('input data: %s', data)
             if not data_provided and save_action != "go-dataset-complete":
                 if save_action == 'go-dataset':
                     # go to final stage of adddataset
@@ -708,9 +713,7 @@ class PackageController(base.BaseController):
         except NotFound:
             abort(404, _('The dataset {id} could not be found.').format(id=id))
         try:
-            check_access('resource_create',
-                         context,
-                         {'package_id': pkg_dict['id']})
+            check_access('resource_create', context, pkg_dict)
         except NotAuthorized:
             abort(401, _('Unauthorized to create a resource for this package'))
 
@@ -965,6 +968,8 @@ class PackageController(base.BaseController):
 
             data_dict['type'] = package_type
             context['message'] = data_dict.get('log_message', '')
+            log.warn("creating package context: %s", context)
+            log.warn("creating package data_dict: %s", data_dict)
             pkg_dict = get_action('package_create')(context, data_dict)
 
             if ckan_phase:
@@ -978,7 +983,11 @@ class PackageController(base.BaseController):
         except NotAuthorized:
             abort(401, _('Unauthorized to read package %s') % '')
         except NotFound, e:
-            abort(404, _('Dataset not found'))
+            logging.warning('error... redirect...')
+            h.redirect_to(controller='package', action='new')
+
+            #abort(404, _('Dataset not found 9'))
+            
         except dict_fns.DataError:
             abort(400, _(u'Integrity Error'))
         except SearchIndexError, e:
@@ -1211,7 +1220,11 @@ class PackageController(base.BaseController):
         c.datastore_api = '%s/api/action' % config.get('ckan.site_url', '').rstrip('/')
 
         c.related_count = c.pkg.related_count
-
+        
+        c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})
+        c.fId = resource_id
+        c.fType = "resource"        
+        c.following = get_action('am_following_resource')(data_dict={'id' : c.user,'user':resource_id})
         c.resource['can_be_previewed'] = self._resource_preview(
             {'resource': c.resource, 'package': c.package})
         return render('package/resource_read.html')
@@ -1262,7 +1275,7 @@ class PackageController(base.BaseController):
                    'session': model.Session,
                    'user': c.user or c.author, 'auth_user_obj': c.userobj}
         data_dict = {'id': id}
-        try:
+        try:           
             get_action('follow_dataset')(context, data_dict)
             package_dict = get_action('package_show')(context, data_dict)
             h.flash_success(_("You are now following {0}").format(

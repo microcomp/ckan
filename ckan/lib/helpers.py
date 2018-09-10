@@ -1198,7 +1198,8 @@ def convert_to_dict(object_type, objs):
     return items
 
 # these are the types of objects that can be followed
-_follow_objects = ['dataset', 'user', 'group']
+_follow_objects = ['dataset', 'user', 'group','resource']
+_follow_controllers = {'resource':'ckanext.notifications.controller:NotificationsController','dataset':'package'}
 
 
 def follow_button(obj_type, obj_id):
@@ -1227,7 +1228,9 @@ def follow_button(obj_type, obj_id):
         return snippet('snippets/follow_button.html',
                        following=following,
                        obj_id=obj_id,
-                       obj_type=obj_type)
+                       controller=_follow_controllers[obj_type] if obj_type in _follow_controllers else obj_type,
+                       obj_type = obj_type
+                       )
     return ''
 
 
