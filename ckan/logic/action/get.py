@@ -22,6 +22,7 @@ import ckan.lib.search as search
 import ckan.lib.plugins as lib_plugins
 import ckan.lib.activity_streams as activity_streams
 import ckan.new_authz as new_authz
+import ckan.lib.helpers as helpers
 
 from ckan.common import _
 
@@ -358,7 +359,7 @@ def _group_or_org_list(context, data_dict, is_org=False):
     if groups:
         query = query.filter(model.GroupRevision.name.in_(groups))
     if q:
-        q = u'%{0}%'.format(q)
+        q = u'%{0}%'.format(helpers.stripDiacritic(q))
         query = query.filter(_or_(
             model.GroupRevision.name.ilike(q),
             model.GroupRevision.title.ilike(q),
@@ -370,7 +371,7 @@ def _group_or_org_list(context, data_dict, is_org=False):
 
     groups = query.all()
     group_list = model_dictize.group_list_dictize(groups, context,
-                                                  lambda x:x[sort_info[0][0]].lower() if isinstance(x[sort_info[0][0]], basestring) else x[sort_info[0][0]],
+                                                  lambda x:helpers.stripDiacritic(x[sort_info[0][0]].lower()) if isinstance(x[sort_info[0][0]], basestring) else x[sort_info[0][0]],
                                                   sort_info[0][1] == 'desc')
 
     if not all_fields:

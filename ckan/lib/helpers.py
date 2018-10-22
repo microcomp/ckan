@@ -13,6 +13,7 @@ import urllib
 import pprint
 import copy
 import urlparse
+import unicodedata
 from urllib import urlencode
 
 from paste.deploy.converters import asbool
@@ -50,6 +51,13 @@ get_locales_dict = i18n.get_locales_dict
 
 log = logging.getLogger(__name__)
 
+def stripDiacritic(inString):
+    normalized = unicodedata.normalize('NFKD',inString)
+    ret = ""
+    for character in normalized:
+        if ord(character) <= 127:
+            ret += character
+    return ret
 
 def _datestamp_to_datetime(datetime_):
     ''' Converts a datestamp to a datetime.  If a datetime is provided it
