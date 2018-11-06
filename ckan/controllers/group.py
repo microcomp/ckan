@@ -196,14 +196,18 @@ class GroupController(base.BaseController):
 
         self._read(id, limit)
         
-        c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})
         c.fId = id
         c.fType = "organization"
         c.following = False
-        followed = get_action('followee_list')(data_dict={'id' : c.user})
-        for flwd in followed:
-            if flwd["type"] == "organization" and (flwd["dict"]["id"] == id or flwd["dict"]["title"] == id):
-                c.following = True        
+        c.notif_check_result = False
+        
+        if c.user != '':
+            c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})           
+            followed = get_action('followee_list')(data_dict={'id' : c.user})
+            for flwd in followed:
+                if flwd["type"] == "organization" and (flwd["dict"]["id"] == id or flwd["dict"]["title"] == id):
+                    c.following = True
+                    break
         
         return render(self._read_template(c.group_dict['type']))
 

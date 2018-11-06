@@ -395,10 +395,16 @@ class PackageController(base.BaseController):
                                        package_type=package_type)
 
         package_saver.PackageSaver().render_package(c.pkg_dict, context)
-        c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})
+        
+        if c.user != '':            
+            c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})
+            c.following = get_action("am_following_dataset")(context=context,data_dict={'id':id})
+        else:
+            c.following = False
+            c.notif_check_result = False
         c.fId = id
         c.fType = "dataset"
-        c.following = get_action("am_following_dataset")(context=context,data_dict={'id':id})
+        
 
         template = self._read_template(package_type)
         template = template[:template.index('.') + 1] + format
@@ -1221,10 +1227,15 @@ class PackageController(base.BaseController):
 
         c.related_count = c.pkg.related_count
         
-        c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})
+        if c.user != '':
+            c.following = get_action('am_following_resource')(data_dict={'id' : c.user,'user':resource_id})
+            c.notif_check_result = get_action('check_notification_email')(context=context,data_dict={})
+        else:
+            c.following = False
+            c.notif_check_result = False
         c.fId = resource_id
         c.fType = "resource"        
-        c.following = get_action('am_following_resource')(data_dict={'id' : c.user,'user':resource_id})
+        
         c.resource['can_be_previewed'] = self._resource_preview(
             {'resource': c.resource, 'package': c.package})
         return render('package/resource_read.html')
