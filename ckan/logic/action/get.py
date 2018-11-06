@@ -346,32 +346,33 @@ def _group_or_org_list(context, data_dict, is_org=False):
     # reverse sort to maintain compatibility.
     if sort.strip() == 'packages':
         sort = 'packages desc'
- 	
+     
     sort_info = _unpick_search(sort,
                                allowed_fields=['name', 'packages', 'title'],
-                               total=1)	
+                               total=1)    
 
     all_fields = data_dict.get('all_fields', None)
 
     query = model.Session.query(model.Group).join(model.GroupRevision)
     query = query.filter(model.GroupRevision.state=='active')
     query = query.filter(model.GroupRevision.current==True)
-    if groups:
-        query = query.filter(model.GroupRevision.name.in_(groups))
-    if q:
-        q = u'%{0}%'.format(helpers.stripDiacritic(q))
-        query = query.filter(_or_(
-            model.GroupRevision.name.ilike(q),
-            model.GroupRevision.title.ilike(q),
-            model.GroupRevision.description.ilike(q),
-        ))
-
-
     query = query.filter(model.GroupRevision.is_organization==is_org)
-
+    sortKey = sort_info[0][0]
+    if groups:
+        query = query.filter(model.GroupRevision.name.in_(groups)) 
+    
     groups = query.all()
+    if q:
+        q = helpers.stripDiacritic(q).lower()
+        #q = u'%{0}%'.format(helpers.stripDiacritic(q))
+        #query = query.filter(_or_(
+        #    model.GroupRevision.name.ilike(q),
+        #    model.GroupRevision.title.ilike(q),
+        #    model.GroupRevision.description.ilike(q),
+        #))
+        groups = [g for g in groups if q in helpers.stripDiacritic(g.title).lower() or q in helpers.stripDiacritic(g.name).lower() or q in helpers.stripDiacritic(g.description).lower() ]
     group_list = model_dictize.group_list_dictize(groups, context,
-                                                  lambda x:helpers.stripDiacritic(x[sort_info[0][0]].lower()) if isinstance(x[sort_info[0][0]], basestring) else x[sort_info[0][0]],
+                                                  lambda x:x[sort_info[0][0]].lower() if isinstance(x[sort_info[0][0]], basestring) else x[sort_info[0][0]],
                                                   sort_info[0][1] == 'desc')
 
     if not all_fields:
