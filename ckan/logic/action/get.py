@@ -372,7 +372,7 @@ def _group_or_org_list(context, data_dict, is_org=False):
         #))
         groups = [g for g in groups if q in helpers.stripDiacritic(g.title).lower() or q in helpers.stripDiacritic(g.name).lower() or q in helpers.stripDiacritic(g.description).lower() ]
     group_list = model_dictize.group_list_dictize(groups, context,
-                                                  lambda x:x[sort_info[0][0]].lower() if isinstance(x[sort_info[0][0]], basestring) else x[sort_info[0][0]],
+                                                  lambda x:helpers.stripDiacritic(x[sort_info[0][0]].lower()) if isinstance(x[sort_info[0][0]], basestring) else x[sort_info[0][0]],
                                                   sort_info[0][1] == 'desc')
 
     if not all_fields:
