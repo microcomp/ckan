@@ -716,6 +716,7 @@ class PackageController(base.BaseController):
                    'user': c.user or c.author, 'auth_user_obj': c.userobj}
         try:
             pkg_dict = get_action('package_show')(context, {'id': id})
+            pkg_dict['package_id'] = id
         except NotFound:
             abort(404, _('The dataset {id} could not be found.').format(id=id))
         try:
